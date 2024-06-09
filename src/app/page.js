@@ -1,6 +1,9 @@
 "use client"
 import React from "react";
 import { Chart } from "react-google-charts";
+import Header from "./component/Header";
+import Filter from "./component/PrincipalFilter";
+import Styles from "./page.module.css";
 
 export const data = [
   ['Region','Views'],
@@ -44,13 +47,17 @@ export const options = {
 
 export function App() {
   return (
-    <Chart
-      chartType="GeoChart"
-      width="100%"
-      height="400px"
-      data={data}
-      options={options}
-    />
+    <div className={Styles.container}>
+      <Header />
+      <Filter/>
+      <Chart
+        chartType="GeoChart"
+        width="100%"
+        height="400px"
+        data={data}
+        options={options}
+      />
+    </div>
   );
 }
 
