@@ -1,8 +1,8 @@
 "use client"
 import React from "react";
 import { Chart } from "react-google-charts";
-import Header from "./component/Header";
-import Filter from "./component/PrincipalFilter";
+import Header from "../component/Header";
+import Filter from "../component/PrincipalFilter";
 import Styles from "./page.module.css";
 
 export const data = [
