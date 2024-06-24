@@ -1,5 +1,5 @@
 .container {
-    background-color: var(--yale-Blue);
+    background-color: var(--yale-blue);
     height: 5vw;
     width: 100%;
     display: flex;
@@ -33,5 +33,5 @@
 .upside {
     display: flex;
     flex-direction: row;
-    align-items: end;
+    align-items: flex-end;
 }

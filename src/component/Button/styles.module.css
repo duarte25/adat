@@ -1,0 +1,10 @@
+.button {
+    height: 2vw;
+    width: 15%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    align-self: center;
+    justify-content: center;
+    background: var(--yale-blue);
+}

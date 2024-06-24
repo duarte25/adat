@@ -9,10 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/material": "^5.15.20",
     "@react-jvectormap/brazil": "^1.0.1",
     "@syncfusion/ej2-react-maps": "^25.2.5",
+    "emotion": "^11.0.0",
     "mapa-brasil": "^1.0.6",
-    "next": "14.2.3",
+    "next": "^14.2.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-google-charts": "^4.0.1",

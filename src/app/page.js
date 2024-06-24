@@ -2,11 +2,12 @@
 import React from "react";
 import { Chart } from "react-google-charts";
 import Header from "../component/Header";
-import Filter from "../component/PrincipalFilter";
+import FilterAll from "../component/PrincipalFilter";
+import Filters from "../component/Filters";
 import Styles from "./page.module.css";
 
 export const data = [
-  ['Region','Views'],
+  ['Region', 'Views'],
   ['Acre', 0],
   ['Alagoas', 1],
   ['Amapá', 2],
@@ -37,7 +38,7 @@ export const data = [
 ];
 
 export const options = {
-  region: "BR", 
+  region: "BR",
   resolution: 'provinces',
   colorAxis: { colors: ["#00853f", "black", "#e31b23"] },
   backgroundColor: "#81d4fa",
@@ -49,14 +50,15 @@ export function App() {
   return (
     <div className={Styles.container}>
       <Header />
-      <Filter/>
-      <Chart
+      <FilterAll />
+      <Filters />
+      {/* <Chart
         chartType="GeoChart"
         width="100%"
         height="400px"
         data={data}
         options={options}
-      />
+      /> */}
     </div>
   );
 }
