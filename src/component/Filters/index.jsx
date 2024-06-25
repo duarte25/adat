@@ -1,39 +1,21 @@
 import Styles from "./styles.module.css";
-import * as React from 'react';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import Button from '../Button';
+import * as React from "react";
+import Select from "../InputSelect";
+import Button from "../Button";
 
 
-export default function Filters(props) {
+export default function Filters() {
 
-    const [age, setAge] = React.useState('');
+    const menuData = [
+        { value: 10, label: "2021" },
+        { value: 20, label: "2022" },
+        { value: 30, label: "2023" },
+    ];
 
     return (
         <div className={Styles.container}>
-            <div className={Styles.select}>
-                <FormControl sx={{ backgroundColor: 'white' }} fullWidth>
-                    <InputLabel sx={{
-                        fontSize: "0.7vw"
-                    }} 
-                    
-                    id="demo-simple-select-label">Age</InputLabel>
-                    <Select
-                        sx={{height: "2.1vw"}}
-                        labelId="demo-simple-select-label"
-                        value={age}
-                        label="Age"
-                    >
-                        <MenuItem value={10}>2021</MenuItem>
-                        <MenuItem value={20}>2022</MenuItem>
-                        <MenuItem value={30}>2023</MenuItem>
-                    </Select>
-                </FormControl>
-            </div>
-
-            <Button/>
+            <Select data={menuData} selectLabel={"Age"} />
+            <Button />
         </div>
     )
 }
