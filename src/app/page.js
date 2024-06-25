@@ -1,8 +1,6 @@
 "use client"
 import React from "react";
 import { Chart } from "react-google-charts";
-import Header from "../component/Header";
-import FilterAll from "../component/PrincipalFilter";
 import Filters from "../component/Filters";
 import Styles from "./page.module.css";
 import Select from "../component/InputSelect";
@@ -47,7 +45,7 @@ export const options = {
   defaultColor: "#f5f5f5",
 };
 
-export function App() {
+export default function App() {
   const menuData = [
     { value: 10, label: "2021" },
     { value: 20, label: "2022" },
@@ -56,7 +54,6 @@ export function App() {
 
   return (
     <div className={Styles.container}>
-      <FilterAll />
       <Filters inputSelect={
         <>
           <Select data={menuData} selectLabel={"Age"} />
@@ -73,5 +70,3 @@ export function App() {
     </div>
   );
 }
-
-export default App;

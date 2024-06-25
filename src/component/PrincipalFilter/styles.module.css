@@ -23,7 +23,7 @@
 
 .container .active {
     background: var(--ghost-white);
-    border-bottom: .3vw solid  var(--yale-Blue);
+    border-bottom: .3vw solid  var(--yale-blue);
     height: 6vw;
     display: flex;
     justify-content: center;

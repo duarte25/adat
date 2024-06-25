@@ -1,3 +1,4 @@
+"use client"
 import Styles from "./styles.module.css";
 import { GiBrazil } from "react-icons/gi";
 import { FaCloudSunRain, FaCarCrash, FaFilter } from "react-icons/fa";
