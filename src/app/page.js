@@ -5,6 +5,7 @@ import Header from "../component/Header";
 import FilterAll from "../component/PrincipalFilter";
 import Filters from "../component/Filters";
 import Styles from "./page.module.css";
+import Select from "../component/InputSelect";
 
 export const data = [
   ['Region', 'Views'],
@@ -47,11 +48,21 @@ export const options = {
 };
 
 export function App() {
+  const menuData = [
+    { value: 10, label: "2021" },
+    { value: 20, label: "2022" },
+    { value: 30, label: "2023" },
+  ];
+
   return (
     <div className={Styles.container}>
-      <Header />
       <FilterAll />
-      <Filters />
+      <Filters inputSelect={
+        <>
+          <Select data={menuData} selectLabel={"Age"} />
+          {/* <Select data={menuData} selectLabel={"Gender"} /> */}
+        </>
+      } />
       {/* <Chart
         chartType="GeoChart"
         width="100%"

@@ -1,16 +1,16 @@
 .container {
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 15vh;
     width: 50%;
     background-color: var(--beige);
-    gap: 1vh;
+    padding: 1vw;
+    gap: 1vw;
 }
 
-.select {
-    width: 15%;
+.containerSelect {
     display: flex;
-    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
 }
