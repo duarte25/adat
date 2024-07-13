@@ -5,10 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
-export default function InputSelect({ data, selectLabel }) {
-
-    const [age, setAge] = React.useState('');
-
+export default function InputSelect({ data, selectLabel, onChange, value }) {
     return (
         <FormControl className={Styles.formSelect} fullWidth>
             <InputLabel
@@ -17,8 +14,9 @@ export default function InputSelect({ data, selectLabel }) {
             <Select
                 sx={{ height: "2.1vw" }}
                 labelId="demo-simple-select-label"
-                value={age}
-                label="Age"
+                value={value}
+                onChange={onChange}
+                label={selectLabel}
             >
                 {data.map((item, index) => (
                     <MenuItem key={index} value={item.value}>
@@ -27,5 +25,5 @@ export default function InputSelect({ data, selectLabel }) {
                 ))}
             </Select>
         </FormControl>
-    )
+    );
 }

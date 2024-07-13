@@ -1,9 +1,9 @@
 "use client"
-import React from "react";
+import React, { useState } from "react";
 import { Chart } from "react-google-charts";
 import Filters from "../component/Filters";
 import Styles from "./page.module.css";
-import Select from "../component/InputSelect";
+import InputSelect from "../component/InputSelect";
 import { fetchApi } from "../utils/fetchApi.js";
 import { useQuery } from "react-query";
 
@@ -39,6 +39,7 @@ const ufFullName = {
 };
 
 export default function App() {
+  const [metric, setMetric] = useState("Acidentes");
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["veiculoGetInformacoes"],
@@ -48,24 +49,29 @@ export default function App() {
     }
   });
 
-  console.log(data)
+  const handleSelectChange = (event) => {
+    setMetric(event.target.value);
+  };
 
-  // Estrutura inicial de dados para o GeoChart
-  const dataUf = [
-    ['State', 'Accidents', 'Deaths']
-    // Preencha dinamicamente com os dados recebidos
-  ];
-
-  // Preenche dataUf com os dados recebidos do fetch
-  if (data) {
-    Object.keys(data).forEach(uf => {
-      const { count, total_death } = data[uf];
-      const fullName = ufFullName[uf];
-      if (fullName) {
-        dataUf.push([fullName, count, total_death]);
-      }
-    });
-  }
+  const getMetricData = (metric, data) => {
+    const dataUf = [['State', metric]];
+    if (data) {
+      Object.keys(data).forEach(uf => {
+        const { count, total_death, total_involved } = data[uf];
+        const fullName = ufFullName[uf];
+        if (fullName) {
+          if (metric === "Acidentes") {
+            dataUf.push([fullName, count]);
+          } else if (metric === "Óbitos") {
+            dataUf.push([fullName, total_death]);
+          } else if (metric === "Envolvidos") {
+            dataUf.push([fullName, total_involved]);
+          }
+        }
+      });
+    }
+    return dataUf;
+  };
 
   const options = {
     region: "BR",
@@ -77,25 +83,28 @@ export default function App() {
   };
 
   const menuData = [
-    { value: 10, label: "2021" },
-    { value: 20, label: "2022" },
-    { value: 30, label: "2023" },
+    { value: "Acidentes", label: "Acidentes" },
+    { value: "Óbitos", label: "Óbitos" },
+    { value: "Envolvidos", label: "Envolvidos" },
   ];
 
   return (
     <div className={Styles.container}>
       <Filters inputSelect={
-        <>
-          <Select data={menuData} selectLabel={"Age"} />
-        </>
+        <InputSelect
+          data={menuData}
+          selectLabel={"Metric"}
+          onChange={handleSelectChange}
+          value={metric}
+        />
       } />
-      <Chart
-        chartType="GeoChart"
-        width="100%"
-        height="400px"
-        data={dataUf}
-        options={options}
-      />
+      <div className={Styles.map}>
+        <Chart
+          chartType="GeoChart"
+          data={getMetricData(metric, data)}
+          options={options}
+        />
+      </div>
     </div>
   );
 }
