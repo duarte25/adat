@@ -24,12 +24,8 @@
     "react-query": "^3.39.3"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.24.7",
+    "@babel/eslint-parser": "^7.24.8",
     "@types/node": "20.14.2",
-    "@types/react": "18.3.3",
-    "eslint": "^8.57.0",
-    "eslint-config-next": "14.2.3",
-    "eslint-plugin-react": "^7.34.3",
-    "eslint-plugin-react-hooks": "^4.6.2"
+    "@types/react": "18.3.3"
   }
 }

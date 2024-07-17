@@ -51,8 +51,6 @@ export default function App() {
     }
   });
 
-  console.log(data)
-
   const handleMetricChange = (event) => {
     setMetric(event.target.value);
   };
@@ -92,7 +90,6 @@ export default function App() {
     enableRegionInteractivity: true, // Ativar interatividade ao passar o mouse
     magnifyingGlass: { enable: true, zoomFactor: 7.5 } // Lupa de zoom no Brasil
   };
-  
 
   const menuData = [
     { value: "Acidentes", label: "Acidentes" },
@@ -110,22 +107,26 @@ export default function App() {
 
   return (
     <div className={Styles.container}>
-      <Filters inputSelect={
-        <>
-          <InputSelect
-            data={menuData}
-            selectLabel={"Métrica"}
-            onChange={handleMetricChange}
-            value={metric}
-          />
-          <InputSelect
-            data={yearData}
-            selectLabel={"Ano"}
-            onChange={handleYearChange}
-            value={year}
-          />
-        </>
-      } />
+
+      <div className={Styles.filterData}>
+        <div className={Styles.title}><hr className={Styles.hrTitle} /><h2>ESTATÍSTICA DE ACIDENTES POR <strong>ESTADO</strong></h2></div>
+        <Filters inputSelect={
+          <>
+            <InputSelect
+              data={menuData}
+              selectLabel={"Métrica"}
+              onChange={handleMetricChange}
+              value={metric}
+            />
+            <InputSelect
+              data={yearData}
+              selectLabel={"Ano"}
+              onChange={handleYearChange}
+              value={year}
+            />
+          </>
+        } />
+      </div>
       <div className={Styles.map}>
         {isLoading ? (
           <p>Carregando...</p>
@@ -139,6 +140,7 @@ export default function App() {
           />
         )}
       </div>
+
     </div>
   );
 }

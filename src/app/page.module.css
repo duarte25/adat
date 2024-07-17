@@ -6,8 +6,29 @@
   gap: 5vh;
 }
 
+.filterData {
+  width: 50vw;
+}
+
 .map {
   width: 60%;
   height: 60%;
 }
 
+.title {
+  display: flex;
+  flex-direction: row;
+  margin-left: -1vw;
+  margin-bottom: 1vw;
+}
+
+.title h2 {
+  font-weight: 200;
+}
+
+.hrTitle {
+  margin-right: 0.2vw;
+  background-color: var(--yale-blue);
+  height: 1.8vw;
+  width: 0.3vw;
+}
