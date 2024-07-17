@@ -8,7 +8,6 @@ import InputSelect from "../component/InputSelect";
 import { fetchApi } from "../utils/fetchApi";
 import { useQuery } from "react-query";
 
-// Mapeamento de siglas para nomes completos dos estados
 const ufFullName = {
   "AC": "Acre",
   "AL": "Alagoas",
@@ -42,13 +41,16 @@ const ufFullName = {
 export default function App() {
   const [metric, setMetric] = useState("Acidentes");
   const [year, setYear] = useState("2022");
+  const [selectedMetric, setSelectedMetric] = useState("Acidentes");
+  const [selectedYear, setSelectedYear] = useState("2022");
 
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["veiculoGetInformacoes", year],
+  const { data, isLoading, isError, error, refetch } = useQuery({
+    queryKey: ["ufGetInformacoes", selectedYear],
     queryFn: async () => {
-      const response = await fetchApi(`/uf?dados=dados_uf_${year}`, "GET");
+      const response = await fetchApi(`/uf?dados=dados_uf_${selectedYear}`, "GET");
       return response;
-    }
+    },
+    enabled: false  // Disable automatic fetching
   });
 
   const handleMetricChange = (event) => {
@@ -57,6 +59,12 @@ export default function App() {
 
   const handleYearChange = (event) => {
     setYear(event.target.value);
+  };
+
+  const handleFetchData = () => {
+    setSelectedMetric(metric);
+    setSelectedYear(year);
+    refetch();
   };
 
   const getMetricData = (metric, data) => {
@@ -83,12 +91,12 @@ export default function App() {
     region: "BR",
     displayMode: "regions",
     resolution: 'provinces',
-    colorAxis: { colors: ["#70b0f5", "#083D77"] }, // Esquema de cores para destacar o Brasil
-    backgroundColor: "#F9F9F9", // Cor de fundo do mapa
-    datalessRegionColor: "#FFFFFF", // Cor para regiões sem dados (branco)
-    defaultColor: "#f5f5f5", // Cor padrão das regiões não destacadas
-    enableRegionInteractivity: true, // Ativar interatividade ao passar o mouse
-    magnifyingGlass: { enable: true, zoomFactor: 7.5 } // Lupa de zoom no Brasil
+    colorAxis: { colors: ["#70b0f5", "#083D77"] },
+    backgroundColor: "#F9F9F9",
+    datalessRegionColor: "#FFFFFF",
+    defaultColor: "#f5f5f5",
+    enableRegionInteractivity: true,
+    magnifyingGlass: { enable: true, zoomFactor: 7.5 }
   };
 
   const menuData = [
@@ -107,25 +115,27 @@ export default function App() {
 
   return (
     <div className={Styles.container}>
-
       <div className={Styles.filterData}>
         <div className={Styles.title}><hr className={Styles.hrTitle} /><h2>ESTATÍSTICA DE ACIDENTES POR <strong>ESTADO</strong></h2></div>
-        <Filters inputSelect={
-          <>
-            <InputSelect
-              data={menuData}
-              selectLabel={"Métrica"}
-              onChange={handleMetricChange}
-              value={metric}
-            />
-            <InputSelect
-              data={yearData}
-              selectLabel={"Ano"}
-              onChange={handleYearChange}
-              value={year}
-            />
-          </>
-        } />
+        <Filters
+          inputSelect={
+            <>
+              <InputSelect
+                data={menuData}
+                selectLabel={"Métrica"}
+                onChange={handleMetricChange}
+                value={metric}
+              />
+              <InputSelect
+                data={yearData}
+                selectLabel={"Ano"}
+                onChange={handleYearChange}
+                value={year}
+              />
+            </>
+          }
+          onButtonClick={handleFetchData}
+        />
       </div>
       <div className={Styles.map}>
         {isLoading ? (
@@ -135,12 +145,11 @@ export default function App() {
         ) : (
           <Chart
             chartType="GeoChart"
-            data={getMetricData(metric, data)}
+            data={getMetricData(selectedMetric, data)}
             options={options}
           />
         )}
       </div>
-
     </div>
   );
 }

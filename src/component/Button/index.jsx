@@ -2,8 +2,8 @@ import Styles from "./styles.module.css";
 import * as React from 'react';
 import Button from '@mui/material/Button';
 
-export default function ButtonSearch() {
+export default function ButtonSearch({ onClick }) {
     return (
-        <Button className={Styles.button} variant="contained">Buscar</Button>
+        <Button onClick={onClick} className={Styles.button} variant="contained">Buscar</Button>
     )
 }
