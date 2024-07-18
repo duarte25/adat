@@ -1,0 +1,35 @@
+.containerTable {
+    color: white;
+    font-size: 30px;
+}
+
+.header {
+    background: var(--beige);
+}
+
+.tableCellHeader {
+    font-size: 1vw;
+}
+
+.column {
+    background: var(--yale-blue);
+}
+
+.columnTitle {
+    color: var(--snow-white);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon {
+    width: 32px;
+    height: 32px;
+}
+
+.tableCellColumn {
+    color: var(--snow-white);
+    font-size: 0.8vw;
+}
+

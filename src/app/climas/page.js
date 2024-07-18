@@ -59,7 +59,7 @@ export default function Climate() {
   return (
     <div className={Styles.container}>
       <div className={Styles.filterData}>
-        <div className={Styles.title}><hr className={Styles.hrTitle} /><h2>ESTATÍSTICA DE ACIDENTES POR <strong>ESTADO</strong></h2></div>
+        <div className={Styles.title}><hr className={Styles.hrTitle} /><h2>ESTATÍSTICA DE ACIDENTES POR <strong>CLIMA</strong></h2></div>
         <Filters
           inputSelect={
             <>
