@@ -7,51 +7,51 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+const climateMapping = {
+  "clear": "Céu limpo",
+  "rain": "Chuva",
+  "unknown": "Desconhecidas",
+  "drizzle": "Garoa/Chuvisco",
+  "hail": "Granizo",
+  "not_informed": "Não informado",
+  "snow": "Neve",
+  "fog": "Nevoeiro/névoa/fumaça",
+  "cloudy": "Nublado",
+  "other_conditions": "Outras condições",
+  "strong_winds": "Ventos fortes"
+};
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
+export default function TableClimate({ data }) {
   
-  const climateFull = {
-    "cleanSky": "cleanSky"
-  }
+  const mappedData = data.map(item => ({
+    ...item,
+    climate: climateMapping[item.climate] || item.climate
+  }));
 
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
-
-export default function TableClimate() {
-    return (
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell></TableCell>
-                  <TableCell align="right">Acidentes</TableCell>
-                  <TableCell align="right">Envolvidos</TableCell>
-                  <TableCell align="right">Óbitos</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow
-                    key={row.name}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-    );
+  return (
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Clima</TableCell>
+            <TableCell align="right">Acidentes</TableCell>
+            <TableCell align="right">Envolvidos</TableCell>
+            <TableCell align="right">Óbitos</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {mappedData.map((row) => (
+            <TableRow key={row.climate}>
+              <TableCell component="th" scope="row">
+                {row.climate}
+              </TableCell>
+              <TableCell align="right">{row.total_accident}</TableCell>
+              <TableCell align="right">{row.total_involved}</TableCell>
+              <TableCell align="right">{row.total_death}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 }
