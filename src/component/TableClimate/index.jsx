@@ -33,7 +33,6 @@ const climateMapping = {
 };
 
 export default function TableClimate({ data }) {
-  console.log("Esta é a data", data);
 
   const mappedData = data.map(item => ({
     ...item,
@@ -42,7 +41,7 @@ export default function TableClimate({ data }) {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table aria-label="simple table">
         <TableHead>
           <TableRow className={Styles.header}>
             <TableCell className={Styles.tableCellHeader}>Clima</TableCell>
@@ -54,8 +53,8 @@ export default function TableClimate({ data }) {
         <TableBody className={Styles.column}>
           {mappedData.map((row) => (
             <TableRow className={Styles.tableRow} key={row.climate.name}>
-              <TableCell className={Styles.tableCellColumn} component="th" scope="row">
-                <div style={{ display: "flex", alignItems: "center", gap: "10px"}}>
+              <TableCell className={`${Styles.tableCellColumn} ${Styles.iconName}`} component="th" scope="row">
+                <div className={Styles.icon} >
                   {row.climate.icon}
                   <span>{row.climate.name}</span>
                 </div>

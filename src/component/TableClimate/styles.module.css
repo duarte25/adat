@@ -1,8 +1,3 @@
-.containerTable {
-    color: white;
-    font-size: 30px;
-}
-
 .header {
     background: var(--beige);
 }
@@ -15,21 +10,17 @@
     background: var(--yale-blue);
 }
 
-.columnTitle {
-    color: var(--snow-white);
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
 .icon {
-    width: 32px;
-    height: 32px;
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    justify-content: start;
+    gap: 1vw;
+    font-size: 1vw
 }
 
 .tableCellColumn {
     color: var(--snow-white);
-    font-size: 0.8vw;
+    font-size: 0.8vw
 }
 
