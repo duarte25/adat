@@ -17,19 +17,20 @@ import { BsSnow2 } from "react-icons/bs";
 import { BsCloudHailFill } from "react-icons/bs";
 import { IoMdAlert } from "react-icons/io";
 import { CgDetailsMore } from "react-icons/cg";
+import { LuSearchX } from "react-icons/lu";
 
 const climateMapping = {
-  "clear": { name: "Céu limpo", icon: <MdSunny className={Styles.icon} /> },
-  "strong_winds": { name: "Ventos fortes", icon: <GiWindsock className={Styles.icon} /> },
-  "drizzle": { name: "Garoa/Chuvisco", icon: <SiDrizzle className={Styles.icon} /> },
-  "rain": { name: "Chuva", icon: <IoRainy className={Styles.icon} /> },
-  "fog": { name: "Nevoeiro/névoa/fumaça", icon: <RiSunFoggyFill className={Styles.icon} /> },
-  "cloudy": { name: "Nublado", icon: <IoMdCloudyNight className={Styles.icon} /> },
-  "snow": { name: "Neve", icon: <BsSnow2 className={Styles.icon} /> },
-  "hail": { name: "Granizo", icon: <BsCloudHailFill className={Styles.icon} /> },
-  "unknown": { name: "Desconhecidas", icon: <IoMdAlert className={Styles.icon} /> },
-  "not_informed": { name: "Não informado", icon: <IoMdAlert className={Styles.icon} /> },
-  "other_conditions": { name: "Outras condições", icon: <CgDetailsMore className={Styles.icon} /> },
+  "clear": { name: "Céu limpo", icon: <MdSunny /> },
+  "strong_winds": { name: "Ventos fortes", icon: <GiWindsock /> },
+  "drizzle": { name: "Garoa/Chuvisco", icon: <SiDrizzle /> },
+  "rain": { name: "Chuva", icon: <IoRainy /> },
+  "fog": { name: "Nevoeiro/névoa/fumaça", icon: <RiSunFoggyFill /> },
+  "cloudy": { name: "Nublado", icon: <IoMdCloudyNight /> },
+  "snow": { name: "Neve", icon: <BsSnow2 /> },
+  "hail": { name: "Granizo", icon: <BsCloudHailFill /> },
+  "unknown": { name: "Desconhecidas", icon: <LuSearchX /> },
+  "not_informed": { name: "Não informado", icon: <IoMdAlert /> },
+  "other_conditions": { name: "Outras condições", icon: <CgDetailsMore /> },
 };
 
 export default function TableClimate({ data }) {

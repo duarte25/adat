@@ -74,7 +74,7 @@ export default function Climate() {
           onButtonClick={handleFetchData}
         />
       </div>
-      <div className={Styles.map}>
+      <div className={Styles.table}>
         {isLoading ? (
           <p>Carregando...</p>
         ) : isError ? (
