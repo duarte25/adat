@@ -47,7 +47,7 @@ export default function App() {
   const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["ufGetInformacoes", selectedYear],
     queryFn: async () => {
-      const response = await fetchApi(`/uf?dados=dados_uf_${selectedYear}`, "GET");
+      const response = await fetchApi(`/uf?data=data_uf_${selectedYear}`, "GET");
       return response;
     },
     enabled: false  // Disable automatic fetching
@@ -71,7 +71,7 @@ export default function App() {
     const dataUf = [['State', metric]];
     if (data) {
       Object.keys(data).forEach(uf => {
-        const { total_accident, total_death, total_involved } = data[uf];
+        const { total_accident, total_death, total_involved, total_injured } = data[uf];
         const fullName = ufFullName[uf];
         if (fullName) {
           if (metric === "Acidentes") {
@@ -80,6 +80,8 @@ export default function App() {
             dataUf.push([fullName, total_death]);
           } else if (metric === "Envolvidos") {
             dataUf.push([fullName, total_involved]);
+          } else if (metric === "Feridos") {
+            dataUf.push([fullName, total_injured]);
           }
         }
       });
@@ -103,6 +105,7 @@ export default function App() {
     { value: "Acidentes", label: "Acidentes" },
     { value: "Óbitos", label: "Óbitos" },
     { value: "Envolvidos", label: "Envolvidos" },
+    { value: "Feridos", label: "Feridos" }
   ];
 
   const yearData = [

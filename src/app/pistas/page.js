@@ -8,14 +8,14 @@ import { fetchApi } from "../../utils/fetchApi";
 import { useQuery } from "react-query";
 import TableClimate from "../../component/TableClimate";
 
-export default function Climate() {
+export default function Road() {
   const [year, setYear] = useState("2022");
   const [selectedYear, setSelectedYear] = useState("2022");
 
   const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["ufGetInformacoes", selectedYear],
     queryFn: async () => {
-      const response = await fetchApi(`/climate?data=data_climate_${selectedYear}`, "GET");
+      const response = await fetchApi(`/highway?data=data_highway_${selectedYear}`, "GET");
       return response;
     },
     enabled: false  // Disable automatic fetching
@@ -34,12 +34,13 @@ export default function Climate() {
     const dataClimate = [];
     if (data) {
       Object.keys(data).forEach(climate => {
-        const { total_accident, total_death, total_involved } = data[climate];
+        const { total_accident, total_death, total_involved, total_injured } = data[climate];
         dataClimate.push({
           climate,
           total_accident,
           total_death,
           total_involved,
+          total_injured
         });
       });
     }
@@ -56,10 +57,12 @@ export default function Climate() {
 
   const tableData = getMetricData(data);
 
+  console.log(data)
+
   return (
     <div className={Styles.container}>
       <div className={Styles.filterData}>
-        <div className={Styles.title}><hr className={Styles.hrTitle} /><h2>ESTATÍSTICA DE ACIDENTES POR <strong>CLIMA E TEMPO</strong></h2></div>
+        <div className={Styles.title}><hr className={Styles.hrTitle} /><h2>ESTATÍSTICA DE ACIDENTES POR <strong>TIPOS DE PISTAS</strong></h2></div>
         <Filters
           inputSelect={
             <>
@@ -73,15 +76,6 @@ export default function Climate() {
           }
           onButtonClick={handleFetchData}
         />
-      </div>
-      <div className={Styles.table}>
-        {isLoading ? (
-          <p>Carregando...</p>
-        ) : isError ? (
-          <p>Erro: {error.message}</p>
-        ) : (
-          <TableClimate data={tableData} />
-        )}
       </div>
     </div>
   );
