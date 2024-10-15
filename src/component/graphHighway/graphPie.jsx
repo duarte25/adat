@@ -2,16 +2,16 @@ import React from "react";
 import Chart from "react-google-charts";
 import Styles from "./graphPie.module.css"; // Certifique-se de que o estilo seja importado corretamente
 
-export default function GraphPie({ data }) {
+export default function GraphPie({ dataPie }) {
 
     // Extraímos cada tipo de pista diretamente dos dados
-    const asphaltData = data.find((item) => item.highway === "Asfalto")?.data || [];
-    const concreteData = data.find((item) => item.highway === "Concreto")?.data || [];
-    const earthData = data.find((item) => item.highway === "Terra")?.data || [];
-    const gravelData = data.find((item) => item.highway === "Cascalho")?.data || [];
-    const notInformedData = data.find((item) => item.highway === "Não informado")?.data || [];
-    const pavingStoneData = data.find((item) => item.highway === "Paralelepípedo")?.data || [];
-    const unknownData = data.find((item) => item.highway === "Desconhecido")?.data || [];
+    const asphaltData = dataPie.find((item) => item.highway === "Asfalto")?.data || [];
+    const concreteData = dataPie.find((item) => item.highway === "Concreto")?.data || [];
+    const earthData = dataPie.find((item) => item.highway === "Terra")?.data || [];
+    const gravelData = dataPie.find((item) => item.highway === "Cascalho")?.data || [];
+    const notInformedData = dataPie.find((item) => item.highway === "Não informado")?.data || [];
+    const pavingStoneData = dataPie.find((item) => item.highway === "Paralelepípedo")?.data || [];
+    const unknownData = dataPie.find((item) => item.highway === "Desconhecido")?.data || [];
 
     const options = {
         pieHole: 0.4,
@@ -74,6 +74,43 @@ export default function GraphPie({ data }) {
                 <div className={Styles.graph}>
                     <Chart
                         chartType="PieChart"
+                        data={gravelData}
+                        options={{ ...options, title: "Cascalho" }}
+                        width="100%"
+                        height="50vh"
+                    />
+                </div>
+
+                <div className={Styles.graph}>
+                    <Chart
+                        chartType="PieChart"
+                        data={unknownData}
+                        options={{ ...options, title: "Desconhecido" }}
+                        width="100%"
+                        height="50vh"
+                    />
+                </div>
+            </div>
+
+
+            <div className={Styles.containerRow}>
+                <div className={Styles.graph}>
+                    <Chart
+                        chartType="PieChart"
+                        data={notInformedData}
+                        options={{ ...options, title: "Não informado" }}
+                        width="100%"
+                        height="50vh"
+                    />
+                </div>
+            </div>
+
+            <hr className={Styles.bar} />
+
+            <div className={Styles.containerRow}>
+                <div className={Styles.graph}>
+                    <Chart
+                        chartType="Bar"
                         data={unknownData}
                         options={{ ...options, title: "Desconhecido" }}
                         width="100%"
@@ -83,7 +120,7 @@ export default function GraphPie({ data }) {
 
                 <div className={Styles.graph}>
                     <Chart
-                        chartType="PieChart"
+                        chartType="Bar"
                         data={notInformedData}
                         options={{ ...options, title: "Não informado" }}
                         width="100%"

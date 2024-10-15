@@ -13,3 +13,9 @@
     box-sizing: border-box;
     width: 50%;
 }
+
+.bar {
+    height: 5px;
+    width: 100%;
+    background: var(--beige);
+}

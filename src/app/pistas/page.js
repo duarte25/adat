@@ -95,7 +95,7 @@ export default function Road() {
       <div className={Styles.filterData}>
         <div className={Styles.title}>
           <hr className={Styles.hrTitle} />
-          <h2>ESTATÍSTICA DE ACIDENTES POR <strong>TIPOS DE PISTAS</strong></h2>
+          <h2>ESTATÍSTICA DE ACIDENTES POR <strong>TIPOS- DE PISTAS</strong></h2>
         </div>
 
         <Filters
@@ -122,11 +122,12 @@ export default function Road() {
       <div className={Styles.graphs}>
         {metric === "Envolvidos" ? (
           // Renderiza o componente GraphPie quando a métrica é "Acidentes"
-          <GraphPie data={metricData} />
+          <GraphPie dataPie={metricData} />
         ) : (
           <h1>Não é o que eu quero</h1>
         )}
       </div>
+
     </div>
   );
 }
