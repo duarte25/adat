@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
+}
+
+.containerRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.graph {
+    box-sizing: border-box;
+    width: 50%;
+}
