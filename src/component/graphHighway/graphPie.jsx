@@ -1,26 +1,58 @@
 import React from "react";
 import Chart from "react-google-charts";
 import Styles from "./graphPie.module.css"; // Certifique-se de que o estilo seja importado corretamente
+import { styleText } from "util";
 
-export default function GraphPie({ dataPie }) {
+export default function GraphPie({ highwayData, shoulderData }) {
 
     // Extraímos cada tipo de pista diretamente dos dados
-    const asphaltData = dataPie.find((item) => item.highway === "Asfalto")?.data || [];
-    const concreteData = dataPie.find((item) => item.highway === "Concreto")?.data || [];
-    const earthData = dataPie.find((item) => item.highway === "Terra")?.data || [];
-    const gravelData = dataPie.find((item) => item.highway === "Cascalho")?.data || [];
-    const notInformedData = dataPie.find((item) => item.highway === "Não informado")?.data || [];
-    const pavingStoneData = dataPie.find((item) => item.highway === "Paralelepípedo")?.data || [];
-    const unknownData = dataPie.find((item) => item.highway === "Desconhecido")?.data || [];
+    const asphaltData = highwayData.find((item) => item.highway === "Asfalto")?.data || [];
+    const concreteData = highwayData.find((item) => item.highway === "Concreto")?.data || [];
+    const earthData = highwayData.find((item) => item.highway === "Terra")?.data || [];
+    const gravelData = highwayData.find((item) => item.highway === "Cascalho")?.data || [];
+    const notInformedData = highwayData.find((item) => item.highway === "Não informado")?.data || [];
+    const pavingStoneData = highwayData.find((item) => item.highway === "Paralelepípedo")?.data || [];
+    const unknownData = highwayData.find((item) => item.highway === "Desconhecido")?.data || [];
 
-    const options = {
+    // Extrai os valores numéricos dos dados, garantindo que sejam números
+    const naoData = shoulderData.find((item) => item.highway === 'Não')?.data.map(d => d[1]) || [];
+    const naoInformadoData = shoulderData.find((item) => item.highway === 'Não informado')?.data.map(d => d[1]) || [];
+    const desconhecidoData = shoulderData.find((item) => item.highway === 'Desconhecido')?.data.map(d => d[1]) || [];
+    const simData = shoulderData.find((item) => item.highway === 'Sim')?.data.map(d => d[1]) || [];
+
+    // Configura os dados para o gráfico de barras
+    const chartDataShoulder = [
+        ['Tipo de Estrada', 'Óbitos', 'Envolvidos', 'Feridos'],
+        ['Não', naoData[0] || 0, naoData[1] || 0, naoData[2] || 0],
+        ['Não informado', naoInformadoData[0] || 0, naoInformadoData[1] || 0, naoInformadoData[2] || 0],
+        ['Desconhecido', desconhecidoData[0] || 0, desconhecidoData[1] || 0, desconhecidoData[2] || 0],
+        ['Sim', simData[0] || 0, simData[1] || 0, simData[2] || 0]
+    ];
+
+    // Opções para PieChart
+    const pieOptions = {
         pieHole: 0.4,
-        colors: ["#5992d0", "#083D77", "#0552B5"], // Defina suas cores aqui
+        colors: ["#5992d0", "#083D77", "#0552B5"],
         legend: { position: "right" },
-        titleTextStyle: { // Estiliza o título
-            fontSize: 24, // Tamanho da fonte
-            bold: true, // Negrito
+        titleTextStyle: {
+            fontSize: 24,
+            bold: true,
         },
+    };
+
+    // Opções para BarChart
+    const barOptions = {
+
+        chartArea: { width: '70%', height: '70%' },
+        colors: ["#5992d0", "#083D77", "#0552B5"],
+        // legend: { position: 'left' },
+        axes: {
+            y: {
+                1: { side: 'left' }
+            }
+        },
+        
+        
     };
 
     return (
@@ -30,7 +62,7 @@ export default function GraphPie({ dataPie }) {
                     <Chart
                         chartType="PieChart"
                         data={asphaltData}
-                        options={{ ...options, title: "Asfalto" }}
+                        options={{ ...pieOptions, title: "Asfalto" }}
                         width="100%"
                         height="50vh"
                     />
@@ -40,7 +72,7 @@ export default function GraphPie({ dataPie }) {
                     <Chart
                         chartType="PieChart"
                         data={concreteData}
-                        options={{ ...options, title: "Concreto" }}
+                        options={{ ...pieOptions, title: "Concreto" }}
                         width="100%"
                         height="50vh"
                     />
@@ -48,12 +80,11 @@ export default function GraphPie({ dataPie }) {
             </div>
 
             <div className={Styles.containerRow}>
-
                 <div className={Styles.graph}>
                     <Chart
                         chartType="PieChart"
                         data={earthData}
-                        options={{ ...options, title: "Terra" }}
+                        options={{ ...pieOptions, title: "Terra" }}
                         width="100%"
                         height="50vh"
                     />
@@ -63,7 +94,7 @@ export default function GraphPie({ dataPie }) {
                     <Chart
                         chartType="PieChart"
                         data={pavingStoneData}
-                        options={{ ...options, title: "Paralelepípedo" }}
+                        options={{ ...pieOptions, title: "Paralelepípedo" }}
                         width="100%"
                         height="50vh"
                     />
@@ -75,7 +106,7 @@ export default function GraphPie({ dataPie }) {
                     <Chart
                         chartType="PieChart"
                         data={gravelData}
-                        options={{ ...options, title: "Cascalho" }}
+                        options={{ ...pieOptions, title: "Cascalho" }}
                         width="100%"
                         height="50vh"
                     />
@@ -85,20 +116,19 @@ export default function GraphPie({ dataPie }) {
                     <Chart
                         chartType="PieChart"
                         data={unknownData}
-                        options={{ ...options, title: "Desconhecido" }}
+                        options={{ ...pieOptions, title: "Desconhecido" }}
                         width="100%"
                         height="50vh"
                     />
                 </div>
             </div>
 
-
             <div className={Styles.containerRow}>
                 <div className={Styles.graph}>
                     <Chart
                         chartType="PieChart"
                         data={notInformedData}
-                        options={{ ...options, title: "Não informado" }}
+                        options={{ ...pieOptions, title: "Não informado" }}
                         width="100%"
                         height="50vh"
                     />
@@ -109,26 +139,18 @@ export default function GraphPie({ dataPie }) {
 
             <div className={Styles.containerRow}>
                 <div className={Styles.graph}>
+                    <h3>Acostamento</h3>
                     <Chart
                         chartType="Bar"
-                        data={unknownData}
-                        options={{ ...options, title: "Desconhecido" }}
+                        data={chartDataShoulder}
+                        options={{
+                            ...barOptions
+                        }}
                         width="100%"
-                        height="50vh"
-                    />
-                </div>
-
-                <div className={Styles.graph}>
-                    <Chart
-                        chartType="Bar"
-                        data={notInformedData}
-                        options={{ ...options, title: "Não informado" }}
-                        width="100%"
-                        height="50vh"
+                        height="40vh"
                     />
                 </div>
             </div>
         </div>
-
     );
 }

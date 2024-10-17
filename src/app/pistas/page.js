@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { Chart } from "react-google-charts";
+import { useQuery } from "react-query";
+import { fetchApi } from "../../utils/fetchApi";
 import Filters from "../../component/Filters";
 import Styles from "./styles.module.css";
 import InputSelect from "../../component/InputSelect";
-import { fetchApi } from "../../utils/fetchApi";
-import { useQuery } from "react-query";
 import GraphPie from "@/component/graphHighway/graphPie";
 
 const highwayFullName = {
@@ -16,7 +15,9 @@ const highwayFullName = {
   "gravel": "Cascalho",
   "not_informed": "Não informado",
   "paving_stone": "Paralelepípedo",
-  "unknown": "Desconhecido"
+  "unknown": "Desconhecido",
+  "yes": "Sim",
+  "not": "Não"
 };
 
 export default function Road() {
@@ -25,13 +26,40 @@ export default function Road() {
   const [selectedMetric, setSelectedMetric] = useState("Acidentes");
   const [selectedYear, setSelectedYear] = useState("2022");
 
-  const { data, isLoading, isError, error, refetch } = useQuery({
+  const { data: highwayData, isLoading: isHighwayLoading, isError: isHighwayError, refetch: refetchHighway } = useQuery({
     queryKey: ["highwayGetInformacoes", selectedYear],
     queryFn: async () => {
       const response = await fetchApi(`/highway?data=data_highway_${selectedYear}`, "GET");
       return response;
     },
-    enabled: false  // Disable automatic fetching
+    enabled: false
+  });
+
+  const { data: guardrailData, isLoading: isGuardrailLoading, isError: isGuardrailError, refetch: refetchGuardrail } = useQuery({
+    queryKey: ["guardrailGetInformacoes", selectedYear],
+    queryFn: async () => {
+      const response = await fetchApi(`/guardrail?data=data_guardrail_${selectedYear}`, "GET");
+      return response;
+    },
+    enabled: false
+  });
+
+  const { data: medianData, isLoading: isMedianLoading, isError: isMedianError, refetch: refetchMedian } = useQuery({
+    queryKey: ["medianGetInformacoes", selectedYear],
+    queryFn: async () => {
+      const response = await fetchApi(`/median?data=data_median_${selectedYear}`, "GET");
+      return response;
+    },
+    enabled: false
+  });
+
+  const { data: shoulderData, isLoading: isShoulderLoading, isError: isShoulderError, refetch: refetchShoulder } = useQuery({
+    queryKey: ["shoulderGetInformacoes", selectedYear],
+    queryFn: async () => {
+      const response = await fetchApi(`/shoulder?data=data_shoulder_${selectedYear}`, "GET");
+      return response;
+    },
+    enabled: false
   });
 
   const handleMetricChange = (event) => {
@@ -45,7 +73,10 @@ export default function Road() {
   const handleFetchData = () => {
     setSelectedMetric(metric);
     setSelectedYear(year);
-    refetch();
+    refetchHighway();
+    refetchGuardrail();
+    refetchMedian();
+    refetchShoulder();
   };
 
   const getMetricData = (metric, data) => {
@@ -54,26 +85,33 @@ export default function Road() {
     if (data) {
       Object.keys(data).forEach((highway) => {
         const { total_accident, total_death, total_involved, total_injured } = data[highway];
-        const fullName = highwayFullName[highway];
+        const fullName = highwayFullName[highway] || highway;
 
-        if (fullName) {
-          const dataHighway = [['Categoria', metric]];
-          if (metric === "Acidentes") {
-            dataHighway.push(["Acidentes", total_accident]);
-          } else if (metric === "Envolvidos") {
-            dataHighway.push(["Óbitos", total_death], ["Envolvidos", total_involved], ["Feridos", total_injured]);
-          }
-
-          chartsData.push({
-            highway: fullName,
-            data: dataHighway
-          });
+        const dataHighway = [["Categoria", metric]];
+        if (metric === "Acidentes") {
+          dataHighway.push(["Acidentes", total_accident]);
+        } else if (metric === "Envolvidos") {
+          dataHighway.push(
+            ["Óbitos", total_death],
+            ["Envolvidos", total_involved],
+            ["Feridos", total_injured]
+          );
         }
+
+        chartsData.push({
+          highway: fullName,
+          data: dataHighway
+        });
       });
     }
 
     return chartsData;
   };
+
+  const highwayMetricData = getMetricData(selectedMetric, highwayData);
+  const guardrailMetricData = getMetricData(selectedMetric, guardrailData);
+  const medianMetricData = getMetricData(selectedMetric, medianData);
+  const shoulderMetricData = getMetricData(selectedMetric, shoulderData);
 
   const menuData = [
     { value: "Acidentes", label: "Acidentes" },
@@ -87,8 +125,6 @@ export default function Road() {
     { value: "2021", label: "2021" },
     { value: "2022", label: "2022" },
   ];
-
-  const metricData = getMetricData(selectedMetric, data);
 
   return (
     <div className={Styles.container}>
@@ -120,14 +156,21 @@ export default function Road() {
       </div>
 
       <div className={Styles.graphs}>
-        {metric === "Envolvidos" ? (
-          // Renderiza o componente GraphPie quando a métrica é "Acidentes"
-          <GraphPie dataPie={metricData} />
+        {isHighwayLoading || isGuardrailLoading || isMedianLoading || isShoulderLoading ? (
+          <p>Carregando dados...</p>
+        ) : isHighwayError || isGuardrailError || isMedianError || isShoulderError ? (
+          <p>Ocorreu um erro ao carregar os dados.</p>
+        ) : metric === "Envolvidos" ? (
+          <GraphPie 
+            highwayData={highwayMetricData}
+            guardrailData={guardrailMetricData}
+            medianData={medianMetricData}
+            shoulderData={shoulderMetricData}
+          />
         ) : (
           <h1>Não é o que eu quero</h1>
         )}
       </div>
-
     </div>
   );
 }
