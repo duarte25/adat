@@ -1,8 +1,11 @@
 import React from "react";
 import Chart from "react-google-charts";
-import Styles from "./graphPie.module.css";
+import Styles from "./graphPieBar.module.css";
 
-export default function GraphPie({ highwayData, shoulderData, medianData, guardrailData }) {
+export default function GraphPieBar({ highwayData, shoulderData, medianData, guardrailData, speedData, dataYear }) {
+
+    console.log("Speed", speedData);
+
     // Função para extrair os dados de um tipo de pista específico
     const getHighwayData = (data, highwayType) => {
         return data.find((item) => item.highway === highwayType)?.data || [];
@@ -15,14 +18,24 @@ export default function GraphPie({ highwayData, shoulderData, medianData, guardr
 
     // Configura os dados para o gráfico de barras
     const prepareBarChartData = (metricData) => [
-        ['Tipo de Estrada', 'Óbitos', 'Envolvidos', 'Feridos'],
+        [`${dataYear}`, 'Óbitos', 'Envolvidos', 'Feridos'],
         ['Não', metricData.nao[0] || 0, metricData.nao[1] || 0, metricData.nao[2] || 0],
         ['Não informado', metricData.naoInformado[0] || 0, metricData.naoInformado[1] || 0, metricData.naoInformado[2] || 0],
         ['Desconhecido', metricData.desconhecido[0] || 0, metricData.desconhecido[1] || 0, metricData.desconhecido[2] || 0],
         ['Sim', metricData.sim[0] || 0, metricData.sim[1] || 0, metricData.sim[2] || 0]
     ];
 
-    // Estrutura os dados de acostamento e mediana
+    const prepareBarChartDataSpeed = (metricData) => [
+        [`${dataYear}`, 'Óbitos', 'Envolvidos', 'Feridos'],
+        ['110 km/h', metricData.quilometro110[0] || 0, metricData.quilometro110[1] || 0, metricData.quilometro110[2] || 0],
+        ['30 km/h', metricData.quilometro30[0] || 0, metricData.quilometro30[1] || 0, metricData.quilometro30[2] || 0],
+        ['40 km/h', metricData.quilometro40[0] || 0, metricData.quilometro40[1] || 0, metricData.quilometro40[2] || 0],
+        ['60 km/h', metricData.quilometro60[0] || 0, metricData.quilometro60[1] || 0, metricData.quilometro60[2] || 0],
+        ['80 km/h', metricData.quilometro80[0] || 0, metricData.quilometro80[1] || 0, metricData.quilometro80[2] || 0],
+        ['Não informado', metricData.naoInformado[0] || 0, metricData.naoInformado[1] || 0, metricData.naoInformado[2] || 0]
+    ];
+
+    // Estrutura os dados de acostamento, mediana, guarda-corpo e velocidade
     const shoulderMetricData = {
         nao: getMetricData(shoulderData, 'Não'),
         naoInformado: getMetricData(shoulderData, 'Não informado'),
@@ -44,10 +57,20 @@ export default function GraphPie({ highwayData, shoulderData, medianData, guardr
         sim: getMetricData(guardrailData, 'Sim'),
     };
 
+    const speedMetricData = {
+        quilometro110: getMetricData(speedData, '110_kmh'),
+        quilometro30: getMetricData(speedData, '30_kmh'),
+        quilometro40: getMetricData(speedData, '40_kmh'),
+        quilometro60: getMetricData(speedData, '60_kmh'),
+        quilometro80: getMetricData(speedData, '80_kmh'),
+        naoInformado: getMetricData(speedData, 'Não informado')
+    };
+
     // Dados dos gráficos de barras
     const chartDataShoulder = prepareBarChartData(shoulderMetricData);
     const chartDataMedian = prepareBarChartData(medianMetricData);
     const chartDataGuardrail = prepareBarChartData(guardrailMetricData);
+    const chartDataSpeed = prepareBarChartDataSpeed(speedMetricData);
 
     // Opções para PieChart e BarChart
     const pieOptions = {
@@ -144,10 +167,10 @@ export default function GraphPie({ highwayData, shoulderData, medianData, guardr
                 </div>
 
                 <div className={Styles.graph}>
-                    <h3>Mediana</h3>
+                    <h3>Velocidade máxima da via</h3>
                     <Chart
                         chartType="Bar"
-                        data={chartDataMedian}
+                        data={chartDataSpeed}
                         options={{ ...barOptions }}
                         width="100%"
                         height="40vh"

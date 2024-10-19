@@ -6,7 +6,7 @@ import { fetchApi } from "../../utils/fetchApi";
 import Filters from "../../component/Filters";
 import Styles from "./styles.module.css";
 import InputSelect from "../../component/InputSelect";
-import GraphPie from "@/component/graphHighway/graphPie";
+import GraphPieBar from "@/component/graphHighway/graphPieBar";
 
 const highwayFullName = {
   "asphalt": "Asfalto",
@@ -62,6 +62,15 @@ export default function Road() {
     enabled: false
   });
 
+  const { data: speedData, isLoading: isSpeedLoading, isError: isSpeedError, refetch: refetchSpeed } = useQuery({
+    queryKey: ["SpeedGetInformacoes", selectedYear],
+    queryFn: async () => {
+      const response = await fetchApi(`/speed?data=data_speed_${selectedYear}`, "GET");
+      return response;
+    },
+    enabled: false
+  });
+
   const handleMetricChange = (event) => {
     setMetric(event.target.value);
   };
@@ -77,6 +86,7 @@ export default function Road() {
     refetchGuardrail();
     refetchMedian();
     refetchShoulder();
+    refetchSpeed();
   };
 
   const getMetricData = (metric, data) => {
@@ -112,6 +122,7 @@ export default function Road() {
   const guardrailMetricData = getMetricData(selectedMetric, guardrailData);
   const medianMetricData = getMetricData(selectedMetric, medianData);
   const shoulderMetricData = getMetricData(selectedMetric, shoulderData);
+  const speedMetricData = getMetricData(selectedMetric, speedData);
 
   const menuData = [
     { value: "Acidentes", label: "Acidentes" },
@@ -161,11 +172,13 @@ export default function Road() {
         ) : isHighwayError || isGuardrailError || isMedianError || isShoulderError ? (
           <p>Ocorreu um erro ao carregar os dados.</p>
         ) : metric === "Envolvidos" ? (
-          <GraphPie 
+          <GraphPieBar 
             highwayData={highwayMetricData}
             guardrailData={guardrailMetricData}
             medianData={medianMetricData}
             shoulderData={shoulderMetricData}
+            speedData={speedMetricData}
+            dataYear={year}
           />
         ) : (
           <h1>Não é o que eu quero</h1>
