@@ -4,12 +4,14 @@ import Styles from "./graphPieBar.module.css";
 
 export default function GraphPieBar({ highwayData, shoulderData, medianData, guardrailData, speedData, dataYear }) {
 
-    console.log("Speed", speedData);
-
-    // Função para extrair os dados de um tipo de pista específico
     const getHighwayData = (data, highwayType) => {
-        return data.find((item) => item.highway === highwayType)?.data || [];
+        const highwayData = data.find((item) => item.highway === highwayType)?.data || [];
+        return highwayData.map(([label, value]) => [
+            `${label}: ${value.toLocaleString('pt-BR')}`, // Formata o valor para o formato brasileiro (ex: 1.200)
+            value
+        ]);
     };
+    
 
     // Função para extrair os valores numéricos de um tipo de métrica específica (ex: shoulder, median)
     const getMetricData = (data, metricType) => {
