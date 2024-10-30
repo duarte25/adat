@@ -7,6 +7,7 @@ import Filters from "../../component/Filters";
 import Styles from "./styles.module.css";
 import InputSelect from "../../component/InputSelect";
 import GraphPieBar from "@/component/graphHighway/graphPieBar";
+import GraphBarLine from "@/component/graphHighway/graphBarLine";
 
 const highwayFullName = {
   "asphalt": "Asfalto",
@@ -21,7 +22,7 @@ const highwayFullName = {
 };
 
 export default function Road() {
-  const [metric, setMetric] = useState("Envolvidos");
+  const [metric, setMetric] = useState("Acidentes");
   const [year, setYear] = useState("2022");
   const [selectedMetric, setSelectedMetric] = useState("Acidentes");
   const [selectedYear, setSelectedYear] = useState("2022");
@@ -172,7 +173,7 @@ export default function Road() {
         ) : isHighwayError || isGuardrailError || isMedianError || isShoulderError ? (
           <p>Ocorreu um erro ao carregar os dados.</p>
         ) : metric === "Envolvidos" ? (
-          <GraphPieBar 
+          <GraphPieBar
             highwayData={highwayMetricData}
             guardrailData={guardrailMetricData}
             medianData={medianMetricData}
@@ -181,7 +182,14 @@ export default function Road() {
             dataYear={year}
           />
         ) : (
-          <h1>Não é o que eu quero</h1>
+          <GraphBarLine
+            highwayData={highwayMetricData}
+            guardrailData={guardrailMetricData}
+            medianData={medianMetricData}
+            shoulderData={shoulderMetricData}
+            speedData={speedMetricData}
+            dataYear={year}
+          />
         )}
       </div>
     </div>
