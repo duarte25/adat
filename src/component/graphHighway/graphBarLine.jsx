@@ -1,7 +1,7 @@
 import React from 'react';
 import Chart from 'react-google-charts';
 
-export default function GraphBarLine({ highwayData }) {
+export default function GraphBarLine({ highwayData, guardrailData }) {
 
     // Transformar os dados para o formato esperado pelo gráfico
     const data = [
@@ -11,18 +11,35 @@ export default function GraphBarLine({ highwayData }) {
             const accidents = row.data[1][1]; // Acessa o número de acidentes
 
             // Lógica para calcular a média ou outro valor (exemplo fixo)
-            const averageAccidents = (row.data.reduce((sum, r) => sum + r[1], 0) / row.data.length) || 0;
+            // const averageAccidents = (row.data.reduce((sum, r) => sum + r[1], 0) / row.data.length) || 0;
 
             return [highway, accidents, accidents]; // Retorna um array com o nome da rodovia, número de acidentes e a média
         }),
     ];
+
+    console.log("Highway", data)
+    console.log("Guardrail", guardrailData)
+
+    const guardrail = [
+        ['Metrica', 'Acidentes', 'Média de Acidentes'],
+        ...guardrailData.map(row => {
+
+            const metric = row.highway;
+            const accidents = row.data[1][1];
+
+            return [metric, accidents, accidents];
+        }),
+    ];
+
+
+    console.log("GUARDRAIL 2", guardrail)
 
     // Ordenar os dados pelo número de acidentes, do maior para o menor
     const sortedData = data.slice(1).sort((a, b) => b[1] - a[1]); // Ignora o cabeçalho e ordena
 
     // Concatenar o cabeçalho com os dados ordenados
     const finalData = [data[0], ...sortedData];
-    console.log(finalData)
+
     // Configurações do gráfico
     const options = {
         title: 'Acidentes por Rodovia',
@@ -39,12 +56,22 @@ export default function GraphBarLine({ highwayData }) {
     };
 
     return (
-        <Chart
-            chartType="ComboChart"
-            width="800px"
-            height="500px"
-            data={finalData}
-            options={options}
-        />
+        <>
+            <Chart
+                chartType="ComboChart"
+                width="800px"
+                height="500px"
+                data={finalData}
+                options={options}
+            />
+
+            <Chart
+                chartType="ComboChart"
+                width="800px"
+                height="500px"
+                data={finalData}
+                options={options}
+            />
+        </>
     );
 }
