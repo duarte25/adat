@@ -49,8 +49,7 @@ export default function App() {
     queryFn: async () => {
       const response = await fetchApi(`/uf?data=data_uf_${selectedYear}`, "GET");
       return response;
-    },
-    enabled: false  // Disable automatic fetching
+    }
   });
 
   const handleMetricChange = (event) => {

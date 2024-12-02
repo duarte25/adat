@@ -33,7 +33,6 @@ export default function Road() {
       const response = await fetchApi(`/highway?data=data_highway_${selectedYear}`, "GET");
       return response;
     },
-    enabled: false
   });
 
   const { data: guardrailData, isLoading: isGuardrailLoading, isError: isGuardrailError, refetch: refetchGuardrail } = useQuery({
@@ -42,7 +41,6 @@ export default function Road() {
       const response = await fetchApi(`/guardrail?data=data_guardrail_${selectedYear}`, "GET");
       return response;
     },
-    enabled: false
   });
 
   const { data: medianData, isLoading: isMedianLoading, isError: isMedianError, refetch: refetchMedian } = useQuery({
@@ -51,7 +49,6 @@ export default function Road() {
       const response = await fetchApi(`/median?data=data_median_${selectedYear}`, "GET");
       return response;
     },
-    enabled: false
   });
 
   const { data: shoulderData, isLoading: isShoulderLoading, isError: isShoulderError, refetch: refetchShoulder } = useQuery({
@@ -60,7 +57,6 @@ export default function Road() {
       const response = await fetchApi(`/shoulder?data=data_shoulder_${selectedYear}`, "GET");
       return response;
     },
-    enabled: false
   });
 
   const { data: speedData, isLoading: isSpeedLoading, isError: isSpeedError, refetch: refetchSpeed } = useQuery({
@@ -69,7 +65,6 @@ export default function Road() {
       const response = await fetchApi(`/speed?data=data_speed_${selectedYear}`, "GET");
       return response;
     },
-    enabled: false
   });
 
   const handleMetricChange = (event) => {
