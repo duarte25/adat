@@ -56,7 +56,7 @@ export default function GraphBarLine({ highwayData, guardrailData, medianData, s
         const sortedRows = [...rows].sort((a, b) => b[sortIndex] - a[sortIndex]); // Ordena as linhas
         return [header, ...sortedRows]; // Recombina o cabeçalho com as linhas ordenadas
     }
-    
+
     const chartDataHighway = sortDataByColumn(highwayMetricData, 1);
 
     const chartDataGuardrail = sortDataByColumn(guardrailMetricData, 1);
@@ -65,7 +65,7 @@ export default function GraphBarLine({ highwayData, guardrailData, medianData, s
 
     const chartDataShoulder = sortDataByColumn(shoulderMetricData, 1);
 
-    const speedDataMedian = sortDataByColumn(speedMedianData, 1);
+    const chartDataSpeed = sortDataByColumn(speedMedianData, 1);
 
     // Configurações do gráfico
     const options = {
@@ -99,7 +99,12 @@ export default function GraphBarLine({ highwayData, guardrailData, medianData, s
                         width="100%"
                         height="40vh"
                         data={chartDataGuardrail}
-                        options={options}
+                        options={{
+                            ...options, hAxis: {
+                                ...options.hAxis, 
+                                title: "Guarda-corpo", 
+                            }
+                        }}
                     />
                 </div>
 
@@ -112,7 +117,12 @@ export default function GraphBarLine({ highwayData, guardrailData, medianData, s
                         width="100%"
                         height="40vh"
                         data={chartDataMedian}
-                        options={options}
+                        options={{
+                            ...options, hAxis: {
+                                ...options.hAxis, 
+                                title: "Canteiro Central", 
+                            }
+                        }}
                     />
                 </div>
                 <div className={Styles.graph}>
@@ -121,7 +131,12 @@ export default function GraphBarLine({ highwayData, guardrailData, medianData, s
                         width="100%"
                         height="40vh"
                         data={chartDataShoulder}
-                        options={options}
+                        options={{
+                            ...options, hAxis: {
+                                ...options.hAxis, 
+                                title: "Acostamento", 
+                            }
+                        }}
                     />
                 </div>
 
@@ -133,8 +148,13 @@ export default function GraphBarLine({ highwayData, guardrailData, medianData, s
                         chartType="ComboChart"
                         width="100%"
                         height="40vh"
-                        data={speedDataMedian}
-                        options={options}
+                        data={chartDataSpeed}
+                        options={{
+                            ...options, hAxis: {
+                                ...options.hAxis, 
+                                title: "Velocidade", 
+                            }
+                        }}
                     />
                 </div>
             </div>
