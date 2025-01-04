@@ -1,49 +1,76 @@
-import React from 'react';
+import Styles from './graphPieBar.module.css';
 import Chart from 'react-google-charts';
+import React from 'react';
 
-export default function GraphBarLine({ highwayData, guardrailData }) {
+export default function GraphBarLine({ highwayData, guardrailData, medianData, shoulderData, speedData, dataYear }) {
 
     // Transformar os dados para o formato esperado pelo gráfico
-    const data = [
-        ['Rodovia', 'Acidentes', 'Média de Acidentes'], // Cabeçalhos
+    const highwayMetricData = [
+        ['Rodovia', 'Acidentes', 'Média de Acidentes '], // Cabeçalhos
         ...highwayData.map(row => {
             const highway = row.highway; // Nome da rodovia
             const accidents = row.data[1][1]; // Acessa o número de acidentes
-
-            // Lógica para calcular a média ou outro valor (exemplo fixo)
-            // const averageAccidents = (row.data.reduce((sum, r) => sum + r[1], 0) / row.data.length) || 0;
-
             return [highway, accidents, accidents]; // Retorna um array com o nome da rodovia, número de acidentes e a média
         }),
     ];
 
-    console.log("Highway", data)
-    console.log("Guardrail", guardrailData)
-
-    const guardrail = [
+    const guardrailMetricData = [
         ['Metrica', 'Acidentes', 'Média de Acidentes'],
         ...guardrailData.map(row => {
-
             const metric = row.highway;
             const accidents = row.data[1][1];
-
             return [metric, accidents, accidents];
         }),
     ];
 
+    const medianMetricData = [
+        ['Metrica', 'Acidentes', 'Média de Acidentes'],
+        ...medianData.map(row => {
+            const metric = row.highway;
+            const accidents = row.data[1][1];
+            return [metric, accidents, accidents];
+        }),
+    ];
 
-    console.log("GUARDRAIL 2", guardrail)
+    const shoulderMetricData = [
+        ['Metrica', 'Acidentes', 'Média de Acidentes'],
+        ...shoulderData.map(row => {
+            const metric = row.highway;
+            const accidents = row.data[1][1];
+            return [metric, accidents, accidents];
+        }),
+    ];
 
-    // Ordenar os dados pelo número de acidentes, do maior para o menor
-    const sortedData = data.slice(1).sort((a, b) => b[1] - a[1]); // Ignora o cabeçalho e ordena
+    const speedMedianData = [
+        ['Metrica', 'Acidentes', 'Média de Acidentes'],
+        ...speedData.map(row => {
+            const metric = row.highway;
+            const accidents = row.data[1][1];
+            return [metric, accidents, accidents];
+        }),
+    ];
 
-    // Concatenar o cabeçalho com os dados ordenados
-    const finalData = [data[0], ...sortedData];
+    function sortDataByColumn(data, sortIndex) {
+        if (data.length <= 1) return data; // Retorna diretamente se não houver dados para ordenar
+        const [header, ...rows] = data; // Separa o cabeçalho das linhas
+        const sortedRows = [...rows].sort((a, b) => b[sortIndex] - a[sortIndex]); // Ordena as linhas
+        return [header, ...sortedRows]; // Recombina o cabeçalho com as linhas ordenadas
+    }
+    
+    const chartDataHighway = sortDataByColumn(highwayMetricData, 1);
+
+    const chartDataGuardrail = sortDataByColumn(guardrailMetricData, 1);
+
+    const chartDataMedian = sortDataByColumn(medianMetricData, 1);
+
+    const chartDataShoulder = sortDataByColumn(shoulderMetricData, 1);
+
+    const speedDataMedian = sortDataByColumn(speedMedianData, 1);
 
     // Configurações do gráfico
     const options = {
         title: 'Acidentes por Rodovia',
-        vAxis: { title: 'Quantidade de Acidentes' },
+        vAxis: { title: 'Quantidade de Acidentes ' },
         hAxis: { title: 'Rodovia' },
         seriesType: 'bars', // Tipo padrão como barras
         series: {
@@ -57,21 +84,61 @@ export default function GraphBarLine({ highwayData, guardrailData }) {
 
     return (
         <>
-            <Chart
-                chartType="ComboChart"
-                width="800px"
-                height="500px"
-                data={finalData}
-                options={options}
-            />
+            <div className={Styles.containerRow}>
+                <div className={Styles.graph}>
+                    <Chart
+                        chartType="ComboChart"
+                        width="100%"
+                        height="40vh"
+                        data={chartDataHighway}
+                        options={options}
+                    />
+                </div>
+                <div className={Styles.graph}>
+                    <Chart
+                        chartType="ComboChart"
+                        width="100%"
+                        height="40vh"
+                        data={chartDataGuardrail}
+                        options={options}
+                    />
+                </div>
 
-            <Chart
-                chartType="ComboChart"
-                width="800px"
-                height="500px"
-                data={finalData}
-                options={options}
-            />
+            </div>
+
+            <div className={Styles.containerRow}>
+                <div className={Styles.graph}>
+                    <Chart
+                        chartType="ComboChart"
+                        width="100%"
+                        height="40vh"
+                        data={chartDataMedian}
+                        options={options}
+                    />
+                </div>
+                <div className={Styles.graph}>
+                    <Chart
+                        chartType="ComboChart"
+                        width="100%"
+                        height="40vh"
+                        data={chartDataShoulder}
+                        options={options}
+                    />
+                </div>
+
+            </div>
+
+            <div className={Styles.containerRow}>
+                <div className={Styles.graph}>
+                    <Chart
+                        chartType="ComboChart"
+                        width="100%"
+                        height="40vh"
+                        data={speedDataMedian}
+                        options={options}
+                    />
+                </div>
+            </div>
         </>
     );
 }
