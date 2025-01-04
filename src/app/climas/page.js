@@ -18,7 +18,6 @@ export default function Climate() {
       const response = await fetchApi(`/climate?data=data_climate_${selectedYear}`, "GET");
       return response;
     },
-    enabled: false  // Disable automatic fetching
   });
 
   const handleYearChange = (event) => {

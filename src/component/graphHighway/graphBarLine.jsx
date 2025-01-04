@@ -74,12 +74,11 @@ export default function GraphBarLine({ highwayData, guardrailData, medianData, s
         hAxis: { title: 'Rodovia' },
         seriesType: 'bars', // Tipo padrão como barras
         series: {
-            // Ou line mas acho que vou preferir area e colocar um z-index para ficar sobreposto
-            1: { type: 'area', color: 'blue', lineWidth: 2, pointSize: 5 }, // Define a série da linha
+            1: { type: 'area', color: 'blue', lineWidth: 2, pointSize: 5 }, // Série: linha/área
         },
         colors: ['#e7b5b5', 'blue'], // Cor das barras e da linha
-        legend: { position: 'top' }, // Posiciona a legenda no topo
-        interpolateNulls: true, // Para evitar buracos na linha
+        legend: { position: 'top' }, // Legenda no topo
+        interpolateNulls: true, // Evitar buracos na linha
     };
 
     return (

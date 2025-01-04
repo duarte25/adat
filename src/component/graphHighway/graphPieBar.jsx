@@ -12,7 +12,6 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
         ]);
     };
     
-
     // Função para extrair os valores numéricos de um tipo de métrica específica (ex: shoulder, median)
     const getMetricData = (data, metricType) => {
         return data.find((item) => item.highway === metricType)?.data.map(d => d[1]) || [];
