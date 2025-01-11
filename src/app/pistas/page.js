@@ -172,14 +172,14 @@ export default function Road() {
           <p>Carregando dados...</p>
         ) : isHighwayError || isGuardrailError || isMedianError || isShoulderError ? (
           <p>Ocorreu um erro ao carregar os dados.</p>
-        ) : metric === "Envolvidos" ? (
+        ) : selectedMetric === "Envolvidos" ? (
           <GraphPieBar
             highwayData={highwayMetricData}
             guardrailData={guardrailMetricData}
             medianData={medianMetricData}
             shoulderData={shoulderMetricData}
             speedData={speedMetricData}
-            dataYear={year}
+            dataYear={selectedYear} 
           />
         ) : (
           <GraphBarLine
@@ -188,7 +188,7 @@ export default function Road() {
             medianData={medianMetricData}
             shoulderData={shoulderMetricData}
             speedData={speedMetricData}
-            dataYear={year}
+            dataYear={selectedYear}
           />
         )}
       </div>
