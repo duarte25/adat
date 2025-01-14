@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="pt-br">
       <ReactQueryProvider>
         <body className={inter.className}>
-          <Header />
+          <Header/>
           <FilterAll />
           {children}
         </body>
