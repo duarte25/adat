@@ -1,57 +1,49 @@
-"use client"
-import Styles from "./styles.module.css";
-import { GiBrazil } from "react-icons/gi";
+"use client";
+
 import { FaCloudSunRain, FaCarCrash, FaFilter } from "react-icons/fa";
-import { TbRoad } from "react-icons/tb";
-import { VscGraph } from "react-icons/vsc";
 import { AiFillAlert } from "react-icons/ai";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { VscGraph } from "react-icons/vsc";
+import { GiBrazil } from "react-icons/gi";
+import { TbRoad } from "react-icons/tb";
+import clsx from "clsx"; 
 
 export default function FilterAll() {
+  const [currentPage, setCurrentPage] = useState("");
 
-    useEffect(() => {
-        const currentPage = window.location.pathname;
-        const menuItems = document.querySelectorAll(`.${Styles.container} a`);
-        menuItems.forEach(item => {
-            if (item.getAttribute("href") === currentPage) {
-                item.classList.add(Styles.active);
-            }
-        });
-    }, []);
+  useEffect(() => {
+    // Obtém o caminho atual da página
+    setCurrentPage(window.location.pathname);
+  }, []);
 
-    return (
-        <div className={Styles.container}>
-            <a href="/" className={`${Styles.stade} ${Styles.allFilter}`}>
-                <GiBrazil className={Styles.icon} />
-                <h3>Estados</h3>
-                <h3>Municipios</h3>
-            </a>
-            <a href="/climas" className={`${Styles.weather} ${Styles.allFilter}`}>
-                <FaCloudSunRain className={Styles.icon} />
-                <h3>Tempo / Clima</h3>
-            </a>
-            <a href="/tipos_veiculos" className={`${Styles.vehicles} ${Styles.allFilter}`}>
-                <FaCarCrash className={Styles.icon} />
-                <h3>Tipos de</h3>
-                <h3>Veiculos</h3>
-            </a>
-            <a href="/pistas" className={`${Styles.track} ${Styles.allFilter}`} >
-                <TbRoad className={Styles.icon} />
-                <h3>Pista</h3>
-            </a>
-            <a href="/estatistias" className={`${Styles.statistic} ${Styles.allFilter}`} >
-                <VscGraph className={Styles.icon} />
-                <h3>Estatística</h3>
-                <h3>Anual</h3>
-            </a>
-            <a href="/causas" className={`${Styles.cause} ${Styles.allFilter}`} >
-                <AiFillAlert style={{ color: "var(--beige)", background: "black" }} className={Styles.icon} />
-                <h3>Causa</h3>
-            </a>
-            <a href="/filtros" className={`${Styles.filter} ${Styles.allFilter}`} >
-                <FaFilter className={Styles.icon} />
-                <h3>Filtro</h3>
-            </a>
-        </div>
-    )
+  const menuItems = [
+    { href: "/", icon: <GiBrazil className="h-[5vh] w-[5vh]" />, label: ["Estados", "Municipios"] },
+    { href: "/climas", icon: <FaCloudSunRain className="h-[5vh] w-[5vh]" />, label: ["Tempo / Clima"] },
+    { href: "/tipos_veiculos", icon: <FaCarCrash className="h-[5vh] w-[5vh]" />, label: ["Tipos de", "Veiculos"] },
+    { href: "/pistas", icon: <TbRoad className="h-[5vh] w-[5vh]" />, label: ["Pista"] },
+    { href: "/estatistias", icon: <VscGraph className="h-[5vh] w-[5vh]" />, label: ["Estatística", "Anual"] },
+    { href: "/causas", icon: <AiFillAlert className="h-[5vh] w-[5vh] text-beige bg-black" />, label: ["Causa"] },
+    { href: "/filtros", icon: <FaFilter className="h-[5vh] w-[5vh]" />, label: ["Filtro"] },
+  ];
+
+  return (
+    <div className="h-[6vw] w-full bg-beige flex flex-row  justify-center items-center gap-[10vh]">
+      {menuItems.map((item, index) => (
+        <a
+          key={index}
+          href={item.href}
+          className={clsx(
+            "flex flex-col items-center",
+            currentPage === item.href &&
+              "bg-ghost-white border-b-[0.3vw] border-yale-blue h-[6vw]"
+          )}
+        >
+          {item.icon}
+          {item.label.map((text, idx) => (
+            <h3 key={idx}>{text}</h3>
+          ))}
+        </a>
+      ))}
+    </div>
+  );
 }

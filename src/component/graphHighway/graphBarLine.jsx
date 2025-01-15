@@ -1,4 +1,3 @@
-import Styles from './graphPieBar.module.css';
 import Chart from 'react-google-charts';
 import React from 'react';
 
@@ -83,8 +82,8 @@ export default function GraphBarLine({ highwayData, guardrailData, medianData, s
 
     return (
         <>
-            <div className={Styles.containerRow}>
-                <div className={Styles.graph}>
+            <div className="flex flex-row">
+                <div className="flex flex-col w-3/6 gap-1 box-border">
                     <Chart
                         chartType="ComboChart"
                         width="100%"
@@ -93,7 +92,7 @@ export default function GraphBarLine({ highwayData, guardrailData, medianData, s
                         options={options}
                     />
                 </div>
-                <div className={Styles.graph}>
+                <div className="flex flex-col w-3/6 gap-1 box-border">
                     <Chart
                         chartType="ComboChart"
                         width="100%"
@@ -101,8 +100,8 @@ export default function GraphBarLine({ highwayData, guardrailData, medianData, s
                         data={chartDataGuardrail}
                         options={{
                             ...options, hAxis: {
-                                ...options.hAxis, 
-                                title: "Guarda-corpo", 
+                                ...options.hAxis,
+                                title: "Guarda-corpo",
                             }
                         }}
                     />
@@ -110,8 +109,8 @@ export default function GraphBarLine({ highwayData, guardrailData, medianData, s
 
             </div>
 
-            <div className={Styles.containerRow}>
-                <div className={Styles.graph}>
+            <div className="flex flex-row">
+                <div className="flex flex-col w-3/6 gap-1 box-border">
                     <Chart
                         chartType="ComboChart"
                         width="100%"
@@ -119,13 +118,13 @@ export default function GraphBarLine({ highwayData, guardrailData, medianData, s
                         data={chartDataMedian}
                         options={{
                             ...options, hAxis: {
-                                ...options.hAxis, 
-                                title: "Canteiro Central", 
+                                ...options.hAxis,
+                                title: "Canteiro Central",
                             }
                         }}
                     />
                 </div>
-                <div className={Styles.graph}>
+                <div className="flex flex-col w-3/6 gap-1 box-border">
                     <Chart
                         chartType="ComboChart"
                         width="100%"
@@ -133,8 +132,8 @@ export default function GraphBarLine({ highwayData, guardrailData, medianData, s
                         data={chartDataShoulder}
                         options={{
                             ...options, hAxis: {
-                                ...options.hAxis, 
-                                title: "Acostamento", 
+                                ...options.hAxis,
+                                title: "Acostamento",
                             }
                         }}
                     />
@@ -142,8 +141,8 @@ export default function GraphBarLine({ highwayData, guardrailData, medianData, s
 
             </div>
 
-            <div className={Styles.containerRow}>
-                <div className={Styles.graph}>
+            <div className="flex flex-row">
+                <div className="flex flex-col w-3/6 gap-1 box-border">
                     <Chart
                         chartType="ComboChart"
                         width="100%"
@@ -151,8 +150,8 @@ export default function GraphBarLine({ highwayData, guardrailData, medianData, s
                         data={chartDataSpeed}
                         options={{
                             ...options, hAxis: {
-                                ...options.hAxis, 
-                                title: "Velocidade", 
+                                ...options.hAxis,
+                                title: "Velocidade",
                             }
                         }}
                     />

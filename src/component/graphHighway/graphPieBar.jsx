@@ -1,6 +1,5 @@
-import React from "react";
 import Chart from "react-google-charts";
-import Styles from "./graphPieBar.module.css";
+import React from "react";
 
 export default function GraphPieBar({ highwayData, shoulderData, medianData, guardrailData, speedData, dataYear }) {
 
@@ -112,11 +111,11 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
     }
 
     return (
-        <div className={Styles.container}>
+        <div className="flex flex-col gap-5">
             {groupedHighwayTypes.map((group, index) => (
-                <div key={index} className={Styles.containerRow}>
+                <div key={index} className="flex flex-row" >
                     {group.map((highway) => (
-                        <div key={highway.type} className={Styles.graph}>
+                        <div key={highway.type} className="flex flex-col w-3/6 gap-1 box-border" >
                             <Chart
                                 chartType="PieChart"
                                 data={highway.data}
@@ -129,11 +128,11 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
                 </div>
             ))}
 
-            <hr className={Styles.bar} />
+            <hr className="h-1 w-full bg-beige" />
 
-            <div className={Styles.containerRow}>
-                <div className={Styles.graph}>
-                    <h3>Acostamento</h3>
+            <div className="flex flex-row">
+                <div className="flex flex-col w-3/6 gap-1 box-border">
+                    <h3 className="text-2xl font-semibold">Acostamento</h3>
                     <Chart
                         chartType="Bar"
                         data={chartDataShoulder}
@@ -143,8 +142,8 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
                     />
                 </div>
 
-                <div className={Styles.graph}>
-                    <h3>Canteiro Central</h3>
+                <div className="flex flex-col w-3/6 gap-1 box-border">
+                    <h3 className="text-2xl font-semibold">Canteiro Central</h3>
                     <Chart
                         chartType="Bar"
                         data={chartDataMedian}
@@ -155,9 +154,9 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
                 </div>
             </div>
 
-            <div className={Styles.containerRow}>
-                <div className={Styles.graph}>
-                    <h3>Guarda Costa</h3>
+            <div className="flex flex-row">
+                <div className="flex flex-col w-3/6 gap-1 box-border">
+                    <h3 className="text-2xl font-semibold">Guarda Costa</h3>
                     <Chart
                         chartType="Bar"
                         data={chartDataGuardrail}
@@ -167,8 +166,8 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
                     />
                 </div>
 
-                <div className={Styles.graph}>
-                    <h3>Velocidade máxima da via</h3>
+                <div className="flex flex-col w-3/6 gap-1 box-border">
+                    <h3 className="text-2xl font-semibold">Velocidade máxima da via</h3>
                     <Chart
                         chartType="Bar"
                         data={chartDataSpeed}

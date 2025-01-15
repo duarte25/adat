@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
-import { useQuery } from "react-query";
+import GraphBarLine from "@/component/graphHighway/graphBarLine";
+import GraphPieBar from "@/component/graphHighway/graphPieBar";
+import InputSelect from "../../component/InputSelect";
 import { fetchApi } from "../../utils/fetchApi";
 import Filters from "../../component/Filters";
-import Styles from "./styles.module.css";
-import InputSelect from "../../component/InputSelect";
-import GraphPieBar from "@/component/graphHighway/graphPieBar";
-import GraphBarLine from "@/component/graphHighway/graphBarLine";
+import React, { useState } from "react";
+import { useQuery } from "react-query";
 
 const highwayFullName = {
   "asphalt": "Asfalto",
@@ -139,10 +138,10 @@ export default function Road() {
   ];
 
   return (
-    <div className={Styles.container}>
-      <div className={Styles.filterData}>
-        <div className={Styles.title}>
-          <hr className={Styles.hrTitle} />
+    <div className="flex flex-col items-center pt-5 gap-5">
+      <div className="w-1/2">
+        <div className="flex flex-row mb-1">
+          <hr className="mr-1 bg-yale-blue h-5 w-1"  />
           <h2>ESTATÍSTICA DE ACIDENTES POR <strong>TIPOS- DE PISTAS</strong></h2>
         </div>
 
@@ -167,7 +166,7 @@ export default function Road() {
         />
       </div>
 
-      <div className={Styles.graphs}>
+      <div className="w-4/5" >
         {isHighwayLoading || isGuardrailLoading || isMedianLoading || isShoulderLoading ? (
           <p>Carregando dados...</p>
         ) : isHighwayError || isGuardrailError || isMedianError || isShoulderError ? (
