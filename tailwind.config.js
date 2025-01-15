@@ -7,7 +7,16 @@ module.exports = {
     './src/**/*.{js,jsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'yale-blue': 'var(--yale-blue)',
+        'beige': 'var(--beige)',
+        'sand-brown': 'var(--sand-brown)',
+        'tomato': 'var(--tomato)',
+        'snow-white': 'var(--snow-white)',
+        'ghost-white': 'var(--ghost-white)',
+      }
+    },
   },
   plugins: [],
 };

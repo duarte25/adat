@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
-import { Chart } from "react-google-charts";
-import Filters from "../component/Filters";
-import Styles from "./page.module.css";
 import InputSelect from "../component/InputSelect";
 import { fetchApi } from "../utils/fetchApi";
+import { Chart } from "react-google-charts";
+import Filters from "../component/Filters";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 
 const ufFullName = {
@@ -116,9 +115,9 @@ export default function App() {
   ];
 
   return (
-    <div className={Styles.container}>
-      <div className={Styles.filterData}>
-        <div className={Styles.title}><hr className={Styles.hrTitle} /><h2>ESTATÍSTICA DE ACIDENTES POR <strong>ESTADO</strong></h2></div>
+    <div className="flex flex-col items-center pt-5 gap-5">
+      <div className="w-1/2">
+        <div className="flex flex-row mb-1"><hr className="mr-1 bg-yale-blue h-5 w-1" /><h2>ESTATÍSTICA DE ACIDENTES POR <strong>ESTADO</strong></h2></div>
         <Filters
           inputSelect={
             <>
@@ -139,7 +138,7 @@ export default function App() {
           onButtonClick={handleFetchData}
         />
       </div>
-      <div className={Styles.map}>
+      <div className="h-3/5 w-3/5" >
         {isLoading ? (
           <p>Carregando...</p>
         ) : isError ? (
