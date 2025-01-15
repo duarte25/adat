@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Styles from './styles.module.css';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -44,25 +43,25 @@ export default function TableClimate({ data }) {
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
         <TableHead>
-          <TableRow className={Styles.header}>
-            <TableCell className={Styles.tableCellHeader}>Clima</TableCell>
-            <TableCell className={Styles.tableCellHeader} align="center">Acidentes</TableCell>
-            <TableCell className={Styles.tableCellHeader} align="center">Envolvidos</TableCell>
-            <TableCell className={Styles.tableCellHeader} align="center">Óbitos</TableCell>
+          <TableRow className="bg-beige">
+            <TableCell className="text-xl">Clima</TableCell>
+            <TableCell className="text-xl" align="center">Acidentes</TableCell>
+            <TableCell className="text-xl" align="center">Envolvidos</TableCell>
+            <TableCell className="text-xl" align="center">Óbitos</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody className={Styles.column}>
+        <TableBody className="bg-yale-blue" >
           {mappedData.map((row) => (
-            <TableRow className={Styles.tableRow} key={row.climate.name}>
-              <TableCell className={`${Styles.tableCellColumn} ${Styles.iconName}`} component="th" scope="row">
-                <div className={Styles.icon} >
+            <TableRow key={row.climate.name}>
+              <TableCell className="text-snow-white text-xl" component="th" scope="row">
+                <div className="flex flex-row items-center content-center gap-1 text-xl" >
                   {row.climate.icon}
                   <span>{row.climate.name}</span>
                 </div>
               </TableCell>
-              <TableCell className={Styles.tableCellColumn} align="center">{row.total_accident}</TableCell>
-              <TableCell className={Styles.tableCellColumn} align="center">{row.total_involved}</TableCell>
-              <TableCell className={Styles.tableCellColumn} align="center">{row.total_death}</TableCell>
+              <TableCell className="text-snow-white -yal text-xl" align="center">{row.total_accident}</TableCell>
+              <TableCell className="text-snow-white text-xl" align="center">{row.total_involved}</TableCell>
+              <TableCell className="text-snow-white text-xl" align="center">{row.total_death}</TableCell>
             </TableRow>
           ))}
         </TableBody>

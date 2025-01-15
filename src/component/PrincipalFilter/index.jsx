@@ -17,17 +17,17 @@ export default function FilterAll() {
   }, []);
 
   const menuItems = [
-    { href: "/", icon: <GiBrazil className="h-[5vh] w-[5vh]" />, label: ["Estados", "Municipios"] },
-    { href: "/climas", icon: <FaCloudSunRain className="h-[5vh] w-[5vh]" />, label: ["Tempo / Clima"] },
-    { href: "/tipos_veiculos", icon: <FaCarCrash className="h-[5vh] w-[5vh]" />, label: ["Tipos de", "Veiculos"] },
-    { href: "/pistas", icon: <TbRoad className="h-[5vh] w-[5vh]" />, label: ["Pista"] },
-    { href: "/estatistias", icon: <VscGraph className="h-[5vh] w-[5vh]" />, label: ["Estatística", "Anual"] },
-    { href: "/causas", icon: <AiFillAlert className="h-[5vh] w-[5vh] text-beige bg-black" />, label: ["Causa"] },
-    { href: "/filtros", icon: <FaFilter className="h-[5vh] w-[5vh]" />, label: ["Filtro"] },
+    { href: "/", icon: <GiBrazil className="h-10 w-10" />, label: ["Estados", "Municipios"] },
+    { href: "/climas", icon: <FaCloudSunRain className="h-10 w-10" />, label: ["Tempo / Clima"] },
+    { href: "/tipos_veiculos", icon: <FaCarCrash className="h-10 w-10" />, label: ["Tipos de", "Veiculos"] },
+    { href: "/pistas", icon: <TbRoad className="h-10 w-10" />, label: ["Pista"] },
+    { href: "/estatistias", icon: <VscGraph className="h-10 w-10" />, label: ["Estatística", "Anual"] },
+    { href: "/causas", icon: <AiFillAlert className="h-10 w-10 text-beige bg-black" />, label: ["Causa"] },
+    { href: "/filtros", icon: <FaFilter className="h-10 w-10" />, label: ["Filtro"] },
   ];
 
   return (
-    <div className="h-[6vw] w-full bg-beige flex flex-row  justify-center items-center gap-[10vh]">
+    <div className="w-full bg-beige flex flex-row  justify-center items-center gap-[10vh]">
       {menuItems.map((item, index) => (
         <a
           key={index}
