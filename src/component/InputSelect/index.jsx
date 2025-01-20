@@ -6,12 +6,13 @@ import * as React from "react";
 
 export default function InputSelect({ data, selectLabel, onChange, value }) {
     return (
-        <FormControl className="bg-white h-full w-1/6" fullWidth>
+        <FormControl className="bg-white" size="small">
             <InputLabel
-                className="text-lg flex items-center w-full h-full"
+                className="text-sm"
                 id="demo-simple-select-label">{selectLabel}</InputLabel>
             <Select
-                sx={{ height: "2.1vw" }}
+                // className="h-[5vh]"
+                // sx={{ height: "2.1vw" }}
                 labelId="demo-simple-select-label"
                 value={value}
                 onChange={onChange}
