@@ -92,7 +92,7 @@ export default function App() {
     displayMode: "regions",
     resolution: 'provinces',
     colorAxis: { colors: ["#70b0f5", "#083D77"] },
-    backgroundColor: "#F9F9F9",
+    backgroundColor: "#F9F9F9", // Podemos passar para branco para confundir com o fundo
     datalessRegionColor: "#FFFFFF",
     defaultColor: "#f5f5f5",
     enableRegionInteractivity: true,
@@ -141,7 +141,7 @@ export default function App() {
           onButtonClick={handleFetchData}
         />
       </div>
-      <div className="h-3/5 w-3/5" >
+      <div className="h-4/5 w-full" >
         {isLoading ? (
           <p>Carregando...</p>
         ) : isError ? (

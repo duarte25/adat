@@ -8,7 +8,7 @@ export default function Filters({ inputSelect, onButtonClick }) {
                 {inputSelect}
             </div>
         
-                <Button className="w-full" onClick={onButtonClick} />
+            <Button className="w-full" onClick={onButtonClick} />
        
         </div>
     );
