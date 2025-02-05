@@ -41,7 +41,7 @@ export default function FilterAll() {
     { href: "/climas", icon: <FaCloudSunRain className="h-10 w-10" />, label: ["Tempo / Clima"] },
     { href: "/tipos_veiculos", icon: <FaCarCrash className="h-10 w-10" />, label: ["Tipos de", "Veiculos"] },
     { href: "/pistas", icon: <TbRoad className="h-10 w-10" />, label: ["Pista"] },
-    { href: "/estatistias", icon: <VscGraph className="h-9 w-9" />, label: ["Estatística", "Anual"] },
+    { href: "/estatistica_anual", icon: <VscGraph className="h-9 w-9" />, label: ["Estatística", "Anual"] },
     { href: "/causas", icon: <AiFillAlert className="h-10 w-10 text-beige bg-black" />, label: ["Causa"] },
     { href: "/filtros", icon: <FaFilter className="h-10 w-10" />, label: ["Filtro"] },
   ];
@@ -51,7 +51,7 @@ export default function FilterAll() {
     { href: "/climas", label: ["Tempo / Clima"] },
     { href: "/tipos_veiculos", label: ["Tipos de", "Veiculos"] },
     { href: "/pistas", label: ["Pista"] },
-    { href: "/estatistias", label: ["Estatística", "Anual"] },
+    { href: "/estatistica_anual", label: ["Estatística", "Anual"] },
     { href: "/causas", label: ["Causa"] },
     { href: "/filtros", label: ["Filtro"] },
   ];
