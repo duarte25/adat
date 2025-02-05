@@ -100,13 +100,7 @@ export default function EstatisticaAnual() {
                 />
             </div>
             <div className="w-4/5">
-                {isLoading ? (
-                    <p>Carregando dados...</p>
-                ) : error ? (
-                    <p>Erro ao carregar dados: {error.message}</p>
-                ) : (
-                    <Chart chartType="LineChart" width="100%" height="400px" data={chartData} options={options} />
-                )}
+                <Chart chartType="LineChart" width="100%" height="400px" data={chartData} options={options} />
             </div>
         </div>
     );

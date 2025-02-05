@@ -6,6 +6,7 @@ import { Chart } from "react-google-charts";
 import Filters from "../component/Filters";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
+import { CircularProgress } from "@mui/material";
 
 const ufFullName = {
   "AC": "Acre",
@@ -143,7 +144,9 @@ export default function App() {
       </div>
       <div className="h-4/5 w-full" >
         {isLoading ? (
-          <p>Carregando...</p>
+          <div className="flex justify-center items-center"> 
+            <CircularProgress color="inherit" className="fixed z-[10] h-32 w-34" />
+          </div>
         ) : isError ? (
           <p>Erro: {error.message}</p>
         ) : (
