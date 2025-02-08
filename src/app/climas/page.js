@@ -6,6 +6,7 @@ import { fetchApi } from "../../utils/fetchApi";
 import Filters from "../../component/Filters";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
+import { CircularProgress } from "@mui/material";
 
 export default function Climate() {
   const [year, setYear] = useState("2022");
@@ -77,7 +78,9 @@ export default function Climate() {
       </div>
       <div className="h-4/5 w-4/5" >
         {isLoading ? (
-          <p>Carregando...</p>
+          <div className="flex justify-center items-center">
+            <CircularProgress color="inherit" className="fixed z-[10] h-32 w-34" />
+          </div>
         ) : isError ? (
           <p>Erro: {error.message}</p>
         ) : (

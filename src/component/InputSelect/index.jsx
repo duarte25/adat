@@ -11,8 +11,7 @@ export default function InputSelect({ data, selectLabel, onChange, value }) {
                 className="text-sm"
                 id="demo-simple-select-label">{selectLabel}</InputLabel>
             <Select
-                // className="h-[5vh]"
-                // sx={{ height: "2.1vw" }}
+                className="px-1"
                 labelId="demo-simple-select-label"
                 value={value}
                 onChange={onChange}

@@ -3,14 +3,14 @@
 import Filters from "@/component/Filters";
 import InputSelect from "@/component/InputSelect";
 import { fetchApi } from "@/utils/fetchApi";
+import { CircularProgress } from "@mui/material";
 import { useState, useEffect } from "react";
 import Chart from "react-google-charts";
 
 export default function EstatisticaAnual() {
     const [selectedInformation, setSelectedInformation] = useState("susp_alcohol?data=data_susp_alcohol_");
     const [dataByYear, setDataByYear] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(true); // Inicia como true para carregar na montagem inicial
 
     const informationData = [
         { value: "susp_alcohol?data=data_susp_alcohol_", label: "Suspeita de álcool" },
@@ -20,8 +20,7 @@ export default function EstatisticaAnual() {
     ];
 
     const fetchData = async (infoType) => {
-        setIsLoading(true);
-        setError(null);
+        setIsLoading(true); // Ativa o estado de carregamento
 
         const years = ["2018", "2019", "2020", "2021", "2022"];
         try {
@@ -31,18 +30,18 @@ export default function EstatisticaAnual() {
             });
 
             const results = await Promise.all(promises);
-            setDataByYear(results);
+            setDataByYear(results); // Atualiza os dados
         } catch (err) {
-            setError(err);
+            console.error("Erro ao buscar dados:", err);
         } finally {
-            setIsLoading(false);
+            setIsLoading(false); // Desativa o estado de carregamento
         }
     };
 
     // Busca inicial apenas na primeira renderização
     useEffect(() => {
         fetchData(selectedInformation);
-    }, []); // Executa apenas uma vez ao montar o componente
+    }, [selectedInformation]); // Adicionei selectedInformation como dependência
 
     // Busca apenas quando o botão for pressionado
     const handleFetchData = () => {
@@ -100,7 +99,13 @@ export default function EstatisticaAnual() {
                 />
             </div>
             <div className="w-4/5">
-                <Chart chartType="LineChart" width="100%" height="400px" data={chartData} options={options} />
+                {isLoading ? (
+                    <div className="flex justify-center items-center">
+                        <CircularProgress color="inherit" className="fixed z-[10] h-32 w-34" />
+                    </div>
+                ) : (
+                    <Chart chartType="LineChart" width="100%" height="400px" data={chartData} options={options} />
+                )}
             </div>
         </div>
     );

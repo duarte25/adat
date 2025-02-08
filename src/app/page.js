@@ -142,7 +142,7 @@ export default function App() {
           onButtonClick={handleFetchData}
         />
       </div>
-      <div className="h-4/5 w-full" >
+      <div className="h-4/5 w-full px-10">
         {isLoading ? (
           <div className="flex justify-center items-center"> 
             <CircularProgress color="inherit" className="fixed z-[10] h-32 w-34" />
