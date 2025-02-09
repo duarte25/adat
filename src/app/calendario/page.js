@@ -62,6 +62,7 @@ export default function Calendario() {
     const searchData = [
         { value: "phase_day", label: "Fase do Dia" },
         { value: "day_week", label: "Dia da Semana" },
+        {value: "month", label: "Mês"}
     ];
 
     const tableData = getMetricData(data);

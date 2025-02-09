@@ -32,14 +32,32 @@ const dayWeekMapping = {
   "saturday": { name: "Sábado" },
 };
 
+// Mapeamento para month
+const monthMapping = {
+  "01": { name: "Janeiro" },
+  "02": { name: "Fevereiro" },
+  "03": { name: "Março" },
+  "04": { name: "Abril" },
+  "05": { name: "Maio" },
+  "06": { name: "Junho" },
+  "07": { name: "Julho" },
+  "08": { name: "Agosto" },
+  "09": { name: "Setembro" },
+  "10": { name: "Outubro" },
+  "11": { name: "Novembro" },
+  "12": { name: "Dezembro" },
+};
+
 export default function TablePhaseDay({ data, searchType }) {
 
   // Escolhe o mapeamento correto com base no tipo de busca
-  const mapping = searchType === "day_week" ? dayWeekMapping : phaseDayMapping;
+  const mapping = searchType === "day_week" ? dayWeekMapping : 
+                  searchType === "month" ? monthMapping : 
+                  phaseDayMapping;
 
   const mappedData = data.map(item => ({
     ...item,
-    category: mapping[item.phaseDay] || mapping[item.dayWeek] || { name: item.phaseDay || item.dayWeek, icon: null }
+    category: mapping[item.phaseDay] || mapping[item.dayWeek] || mapping[item.month] || { name: item.phaseDay || item.dayWeek || item.month, icon: null }
   }));
 
   return (
