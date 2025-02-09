@@ -38,21 +38,21 @@ export default function FilterAll() {
   }, []);
 
   const menuItems = [
-    { href: "/", icon: <GiBrazil className="h-10 w-10" />, label: ["Estados", "Municipios"] },
+    { href: "/", icon: <GiBrazil className="h-10 w-10" />, label: ["Estados"] },
     { href: "/climas", icon: <FaCloudSunRain className="h-10 w-10" />, label: ["Tempo / Clima"] },
     { href: "/pistas", icon: <TbRoad className="h-10 w-10" />, label: ["Pista"] },
     { href: "/estatistica_anual", icon: <VscGraph className="h-9 w-9 mt-1" />, label: ["Estatística", "Anual"] },
-    { href: "/calendario", icon: <MdCalendarMonth className="h-10 w-10" />, label: ["Calendario", "Veiculos"] },
+    { href: "/calendario", icon: <MdCalendarMonth className="h-10 w-10" />, label: ["Calendário"] },
     // { href: "/causas", icon: <AiFillAlert className="h-10 w-10 text-beige bg-black" />, label: ["Causa"] },
     // { href: "/filtros", icon: <FaFilter className="h-10 w-10" />, label: ["Filtro"] },
   ];
 
   const menuBurguer = [
-    { href: "/", label: ["Estados", "Municipios"] },
+    { href: "/", label: ["Estados"] },
     { href: "/climas", label: ["Tempo / Clima"] },
     { href: "/pistas", label: ["Pista"] },
     { href: "/estatistica_anual", label: ["Estatística", "Anual"] },
-    { href: "/calendario", label: ["Calendario", "Veiculos"] },
+    { href: "/calendario", label: ["Calendário"] },
     // { href: "/causas", label: ["Causa"] },
     // { href: "/filtros", label: ["Filtro"] },
   ];

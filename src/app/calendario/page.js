@@ -72,7 +72,7 @@ export default function Calendario() {
             <div className="w-1/2">
                 <div className="flex flex-row mb-1">
                     <hr className="mr-1 bg-yale-blue h-5 w-1" />
-                    <h2>ESTATÍSTICA DE ACIDENTES POR <strong>CLIMA E TEMPO</strong></h2>
+                    <h2>ESTATÍSTICA DE ACIDENTES POR <strong>CALENDÁRIO</strong></h2>
                 </div>
                 <Filters
                     inputSelect={

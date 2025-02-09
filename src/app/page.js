@@ -120,7 +120,7 @@ export default function App() {
       <div className="w-1/2">
         <div className="flex flex-row mb-1">
           <hr className="mr-1 bg-yale-blue h-5 w-1" />
-          <h2>ESTATÍSTICA DE ACIDENTES POR <strong>ESTADO</strong></h2>
+          <h2>ESTATÍSTICA DE ACIDENTES POR <strong>ESTADOS</strong></h2>
         </div>
         <Filters
           inputSelect={
