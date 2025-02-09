@@ -7,6 +7,7 @@ import { VscGraph } from "react-icons/vsc";
 import { GiBrazil } from "react-icons/gi";
 import { TbRoad } from "react-icons/tb";
 import clsx from "clsx";
+import { MdCalendarMonth } from "react-icons/md";
 
 export default function FilterAll() {
   const [currentPage, setCurrentPage] = useState("");
@@ -39,9 +40,9 @@ export default function FilterAll() {
   const menuItems = [
     { href: "/", icon: <GiBrazil className="h-10 w-10" />, label: ["Estados", "Municipios"] },
     { href: "/climas", icon: <FaCloudSunRain className="h-10 w-10" />, label: ["Tempo / Clima"] },
-    { href: "/tipos_veiculos", icon: <FaCarCrash className="h-10 w-10" />, label: ["Tipos de", "Veiculos"] },
     { href: "/pistas", icon: <TbRoad className="h-10 w-10" />, label: ["Pista"] },
     { href: "/estatistica_anual", icon: <VscGraph className="h-9 w-9 mt-1" />, label: ["Estatística", "Anual"] },
+    { href: "/calendario", icon: <MdCalendarMonth className="h-10 w-10" />, label: ["Calendario", "Veiculos"] },
     // { href: "/causas", icon: <AiFillAlert className="h-10 w-10 text-beige bg-black" />, label: ["Causa"] },
     // { href: "/filtros", icon: <FaFilter className="h-10 w-10" />, label: ["Filtro"] },
   ];
@@ -49,9 +50,9 @@ export default function FilterAll() {
   const menuBurguer = [
     { href: "/", label: ["Estados", "Municipios"] },
     { href: "/climas", label: ["Tempo / Clima"] },
-    { href: "/tipos_veiculos", label: ["Tipos de", "Veiculos"] },
     { href: "/pistas", label: ["Pista"] },
     { href: "/estatistica_anual", label: ["Estatística", "Anual"] },
+    { href: "/calendario", label: ["Calendario", "Veiculos"] },
     // { href: "/causas", label: ["Causa"] },
     // { href: "/filtros", label: ["Filtro"] },
   ];
