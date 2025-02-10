@@ -53,15 +53,15 @@ export default function TableClimate({ data }) {
         <TableBody className="bg-yale-blue" >
           {mappedData.map((row) => (
             <TableRow key={row.climate.name}>
-              <TableCell className="text-snow-white text-xl" component="th" scope="row">
+              <TableCell style={{ color: "white" }} className="text-white text-xl" component="th" scope="row">
                 <div className="flex flex-row items-center content-center gap-1 text-xl" >
                   {row.climate.icon}
                   <span>{row.climate.name}</span>
                 </div>
               </TableCell>
-              <TableCell className="text-snow-white -yal text-xl" align="center">{row.total_accident}</TableCell>
-              <TableCell className="text-snow-white text-xl" align="center">{row.total_involved}</TableCell>
-              <TableCell className="text-snow-white text-xl" align="center">{row.total_death}</TableCell>
+              <TableCell style={{ color: "white" }} className="text-white text-xl" align="center">{row.total_accident}</TableCell>
+              <TableCell style={{ color: "white" }} className="text-white text-xl" align="center">{row.total_involved}</TableCell>
+              <TableCell style={{ color: "white" }} className="text-white text-xl" align="center">{row.total_death}</TableCell>
             </TableRow>
           ))}
         </TableBody>
