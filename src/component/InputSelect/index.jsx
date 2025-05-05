@@ -1,18 +1,17 @@
-import Styles from "./styles.module.css";
-import * as React from "react";
-import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import * as React from "react";
 
 export default function InputSelect({ data, selectLabel, onChange, value }) {
     return (
-        <FormControl className={Styles.formSelect} fullWidth>
+        <FormControl className="bg-white" size="small">
             <InputLabel
-                className={Styles.inputLabel}
+                className="text-sm"
                 id="demo-simple-select-label">{selectLabel}</InputLabel>
             <Select
-                sx={{ height: "2.1vw" }}
+                className="px-1"
                 labelId="demo-simple-select-label"
                 value={value}
                 onChange={onChange}

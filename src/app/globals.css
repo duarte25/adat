@@ -1,17 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swa');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos globais */
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: 'Inter', sans-serif;
 }
 
-a{
+a {
   color: inherit;
   text-decoration: none;
 }
 
+/* Variáveis CSS */
 :root {
   --yale-blue: #083D77;
   --beige: #EBEBD3;
@@ -21,4 +26,3 @@ a{
   --snow-white: #F9F9F9;
   --ghost-white: #F9F9F9;
 }
-

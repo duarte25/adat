@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
-import { Chart } from "react-google-charts";
-import Filters from "../component/Filters";
-import Styles from "./page.module.css";
 import InputSelect from "../component/InputSelect";
 import { fetchApi } from "../utils/fetchApi";
+import { Chart } from "react-google-charts";
+import Filters from "../component/Filters";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
+import { CircularProgress } from "@mui/material";
 
 const ufFullName = {
   "AC": "Acre",
@@ -49,8 +49,7 @@ export default function App() {
     queryFn: async () => {
       const response = await fetchApi(`/uf?data=data_uf_${selectedYear}`, "GET");
       return response;
-    },
-    enabled: false  // Disable automatic fetching
+    }
   });
 
   const handleMetricChange = (event) => {
@@ -94,7 +93,7 @@ export default function App() {
     displayMode: "regions",
     resolution: 'provinces',
     colorAxis: { colors: ["#70b0f5", "#083D77"] },
-    backgroundColor: "#F9F9F9",
+    backgroundColor: "#F9F9F9", // Podemos passar para branco para confundir com o fundo
     datalessRegionColor: "#FFFFFF",
     defaultColor: "#f5f5f5",
     enableRegionInteractivity: true,
@@ -117,9 +116,12 @@ export default function App() {
   ];
 
   return (
-    <div className={Styles.container}>
-      <div className={Styles.filterData}>
-        <div className={Styles.title}><hr className={Styles.hrTitle} /><h2>ESTATÍSTICA DE ACIDENTES POR <strong>ESTADO</strong></h2></div>
+    <div className="flex flex-col items-center pt-5 gap-5">
+      <div className="w-1/2">
+        <div className="flex flex-row mb-1">
+          <hr className="mr-1 bg-yale-blue h-5 w-1" />
+          <h2>ESTATÍSTICA DE ACIDENTES POR <strong>ESTADOS</strong></h2>
+        </div>
         <Filters
           inputSelect={
             <>
@@ -140,9 +142,11 @@ export default function App() {
           onButtonClick={handleFetchData}
         />
       </div>
-      <div className={Styles.map}>
+      <div className="h-4/5 w-full px-10">
         {isLoading ? (
-          <p>Carregando...</p>
+          <div className="flex justify-center items-center"> 
+            <CircularProgress color="inherit" className="fixed z-[10] h-32 w-34" />
+          </div>
         ) : isError ? (
           <p>Erro: {error.message}</p>
         ) : (

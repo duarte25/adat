@@ -2,7 +2,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "../component/Header";
 import FilterAll from "../component/PrincipalFilter";
-import ReactQueryProvider from "../providers/reactQueryProvider.js"
+import ReactQueryProvider from "../providers/reactQueryProvider.js";
+import Footer from "@/component/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,10 +16,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt-br">
       <ReactQueryProvider>
-        <body className={inter.className}>
+        <body className={`flex flex-col min-h-screen ${inter.className}`}>
           <Header />
           <FilterAll />
-          {children}
+          <div className="flex-grow">{children}</div>
+          <Footer />
         </body>
       </ReactQueryProvider>
     </html>

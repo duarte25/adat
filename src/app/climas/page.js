@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
-import Filters from "../../component/Filters";
-import Styles from "./styles.module.css";
+import TableClimate from "../../component/TableClimate";
 import InputSelect from "../../component/InputSelect";
 import { fetchApi } from "../../utils/fetchApi";
+import Filters from "../../component/Filters";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
-import TableClimate from "../../component/TableClimate";
+import { CircularProgress } from "@mui/material";
 
 export default function Climate() {
   const [year, setYear] = useState("2022");
@@ -18,7 +18,6 @@ export default function Climate() {
       const response = await fetchApi(`/climate?data=data_climate_${selectedYear}`, "GET");
       return response;
     },
-    enabled: false  // Disable automatic fetching
   });
 
   const handleYearChange = (event) => {
@@ -57,9 +56,12 @@ export default function Climate() {
   const tableData = getMetricData(data);
 
   return (
-    <div className={Styles.container}>
-      <div className={Styles.filterData}>
-        <div className={Styles.title}><hr className={Styles.hrTitle} /><h2>ESTATÍSTICA DE ACIDENTES POR <strong>CLIMA E TEMPO</strong></h2></div>
+    <div className="flex flex-col items-center pt-5 gap-5">
+      <div className="w-1/2">
+        <div className="flex flex-row mb-1">
+          <hr className="mr-1 bg-yale-blue h-5 w-1" />
+          <h2>ESTATÍSTICA DE ACIDENTES POR <strong>CLIMA E TEMPO</strong></h2>
+        </div>
         <Filters
           inputSelect={
             <>
@@ -74,9 +76,11 @@ export default function Climate() {
           onButtonClick={handleFetchData}
         />
       </div>
-      <div className={Styles.table}>
+      <div className="h-4/5 w-4/5" >
         {isLoading ? (
-          <p>Carregando...</p>
+          <div className="flex justify-center items-center">
+            <CircularProgress color="inherit" className="fixed z-[10] h-32 w-34" />
+          </div>
         ) : isError ? (
           <p>Erro: {error.message}</p>
         ) : (
