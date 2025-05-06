@@ -51,9 +51,9 @@ const monthMapping = {
 export default function TablePhaseDay({ data, searchType }) {
 
   // Escolhe o mapeamento correto com base no tipo de busca
-  const mapping = searchType === "day_week" ? dayWeekMapping : 
-                  searchType === "month" ? monthMapping : 
-                  phaseDayMapping;
+  const mapping = searchType === "day_week" ? dayWeekMapping :
+    searchType === "month" ? monthMapping :
+      phaseDayMapping;
 
   const mappedData = data.map(item => ({
     ...item,
