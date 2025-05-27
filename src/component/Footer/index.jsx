@@ -10,7 +10,7 @@ export default function Footer() {
 
       <ul className="flex justify-center flex-row gap-5">
         <li><Link href="https://duarte25.github.io/portfolio/" target="_blank" rel="noopener noreferrer">PORTFÓLIO</Link></li>
-        <li><Link href="duarte.guga2025@gmail.com" target="_blank" rel="noopener noreferrer">CONTATO</Link></li>
+        <li><Link href="mailto:duarte.guga2025@gmail.com" target="_blank" rel="noopener noreferrer">CONTATO</Link></li>
         <li><Link href="https://ifro.edu.br" target="_blank" rel="noopener noreferrer">IFRO</Link></li>
       </ul>
 
@@ -20,9 +20,6 @@ export default function Footer() {
         </Link>
         <Link href="https://github.com/duarte25" target="_blank" rel="noopener noreferrer">
           <TbBrandGithub className="h-10 w-10 hover:text-gray-400 transition-colors duration-300" />
-        </Link>
-        <Link href="https://www.facebook.com/seu-perfil" target="_blank" rel="noopener noreferrer">
-          <FaFacebook className="h-10 w-10 hover:text-blue-600 transition-colors duration-300" />
         </Link>
       </div>
     </div>

@@ -4,6 +4,7 @@ import Header from "../component/Header";
 import FilterAll from "../component/PrincipalFilter";
 import ReactQueryProvider from "../providers/reactQueryProvider.js";
 import Footer from "@/component/Footer";
+import ReactToastContainer from "@/component/ReactToastContainer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +20,10 @@ export default function RootLayout({ children }) {
         <body className={`flex flex-col min-h-screen ${inter.className}`}>
           <Header />
           <FilterAll />
-          <div className="flex-grow">{children}</div>
+          <div className="flex-grow">
+            <ReactToastContainer />
+            {children}
+          </div>
           <Footer />
         </body>
       </ReactQueryProvider>

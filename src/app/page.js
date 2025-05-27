@@ -4,87 +4,68 @@ import InputSelect from "../component/InputSelect";
 import { fetchApi } from "../utils/fetchApi";
 import { Chart } from "react-google-charts";
 import Filters from "../component/Filters";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { CircularProgress } from "@mui/material";
+import { SpinnerCircular } from "spinners-react";
+import { handleErrorMessages } from "@/errors/handleErrorMessage";
 
 const ufFullName = {
-  "AC": "Acre",
-  "AL": "Alagoas",
-  "AP": "Amapá",
-  "AM": "Amazonas",
-  "BA": "Bahia",
-  "CE": "Ceará",
-  "DF": "Distrito Federal",
-  "ES": "Espírito Santo",
-  "GO": "Goiás",
-  "MA": "Maranhão",
-  "MT": "Mato Grosso",
-  "MS": "Mato Grosso do Sul",
-  "MG": "Minas Gerais",
-  "PA": "Pará",
-  "PB": "Paraíba",
-  "PR": "Paraná",
-  "PE": "Pernambuco",
-  "PI": "Piauí",
-  "RJ": "Rio de Janeiro",
-  "RN": "Rio Grande do Norte",
-  "RS": "Rio Grande do Sul",
-  "RO": "Rondônia",
-  "RR": "Roraima",
-  "SC": "Santa Catarina",
-  "SP": "São Paulo",
-  "SE": "Sergipe",
-  "TO": "Tocantins"
+  "AC": "Acre", "AL": "Alagoas", "AP": "Amapá", "AM": "Amazonas", "BA": "Bahia",
+  "CE": "Ceará", "DF": "Distrito Federal", "ES": "Espírito Santo", "GO": "Goiás",
+  "MA": "Maranhão", "MT": "Mato Grosso", "MS": "Mato Grosso do Sul", "MG": "Minas Gerais",
+  "PA": "Pará", "PB": "Paraíba", "PR": "Paraná", "PE": "Pernambuco", "PI": "Piauí",
+  "RJ": "Rio de Janeiro", "RN": "Rio Grande do Norte", "RS": "Rio Grande do Sul",
+  "RO": "Rondônia", "RR": "Roraima", "SC": "Santa Catarina", "SP": "São Paulo",
+  "SE": "Sergipe", "TO": "Tocantins"
 };
 
 export default function App() {
   const [metric, setMetric] = useState("Acidentes");
   const [year, setYear] = useState("2022");
-  const [selectedMetric, setSelectedMetric] = useState("Acidentes");
-  const [selectedYear, setSelectedYear] = useState("2022");
 
   const { data, isLoading, isError, error, refetch } = useQuery({
-    queryKey: ["ufGetInformacoes", selectedYear],
+    queryKey: ["ufGetInformacoes", year],
     queryFn: async () => {
-      const response = await fetchApi(`/uf?data=data_uf_${selectedYear}`, "GET");
+      const response = await fetchApi(`/uf?data=data_uf_${year}`, "GET");
+
       return response;
     }
   });
 
-  const handleMetricChange = (event) => {
-    setMetric(event.target.value);
-  };
-
-  const handleYearChange = (event) => {
-    setYear(event.target.value);
-  };
-
-  const handleFetchData = () => {
-    setSelectedMetric(metric);
-    setSelectedYear(year);
+  // 🔥 Sempre que mudar metric ou year, refaz a busca
+  useEffect(() => {
     refetch();
-  };
+  }, [year]); // O fetch depende apenas do ano
 
   const getMetricData = (metric, data) => {
     const dataUf = [['State', metric]];
+    const fetchedUfCodes = new Set();
+
     if (data) {
-      Object.keys(data).forEach(uf => {
-        const { total_accident, total_death, total_involved, total_injured } = data[uf];
-        const fullName = ufFullName[uf];
+      Object.keys(data).forEach(ufCode => {
+        const { total_accident, total_death, total_involved, total_injured } = data[ufCode];
+        const fullName = ufFullName[ufCode];
+
         if (fullName) {
-          if (metric === "Acidentes") {
-            dataUf.push([fullName, total_accident]);
-          } else if (metric === "Óbitos") {
-            dataUf.push([fullName, total_death]);
-          } else if (metric === "Envolvidos") {
-            dataUf.push([fullName, total_involved]);
-          } else if (metric === "Feridos") {
-            dataUf.push([fullName, total_injured]);
-          }
+          let valueToAdd = 0;
+          if (metric === "Acidentes") valueToAdd = total_accident;
+          else if (metric === "Óbitos") valueToAdd = total_death;
+          else if (metric === "Envolvidos") valueToAdd = total_involved;
+          else if (metric === "Feridos") valueToAdd = total_injured;
+
+          dataUf.push([fullName, valueToAdd]);
+          fetchedUfCodes.add(ufCode);
         }
       });
     }
+
+    Object.keys(ufFullName).forEach(ufCode => {
+      if (!fetchedUfCodes.has(ufCode)) {
+        const fullName = ufFullName[ufCode];
+        dataUf.push([fullName, 0]);
+      }
+    });
+
     return dataUf;
   };
 
@@ -92,8 +73,8 @@ export default function App() {
     region: "BR",
     displayMode: "regions",
     resolution: 'provinces',
-    colorAxis: { colors: ["#70b0f5", "#083D77"] },
-    backgroundColor: "#F9F9F9", // Podemos passar para branco para confundir com o fundo
+    colorAxis: { colors: ["#70eaf5", "#083D77"] },
+    backgroundColor: "#F9F9F9",
     datalessRegionColor: "#FFFFFF",
     defaultColor: "#f5f5f5",
     enableRegionInteractivity: true,
@@ -115,6 +96,13 @@ export default function App() {
     { value: "2022", label: "2022" },
   ];
 
+  useEffect(() => {
+    if (error) {
+      handleErrorMessages(error?.response?.data?.errors || []);
+    }
+  }, [error]);
+
+
   return (
     <div className="flex flex-col items-center pt-5 gap-5">
       <div className="w-1/2">
@@ -128,33 +116,49 @@ export default function App() {
               <InputSelect
                 data={menuData}
                 selectLabel={"Métrica"}
-                onChange={handleMetricChange}
+                onChange={(e) => setMetric(e.target.value)}
                 value={metric}
               />
               <InputSelect
                 data={yearData}
                 selectLabel={"Ano"}
-                onChange={handleYearChange}
+                onChange={(e) => setYear(e.target.value)}
                 value={year}
               />
             </>
           }
-          onButtonClick={handleFetchData}
         />
       </div>
-      <div className="h-4/5 w-full px-10">
-        {isLoading ? (
-          <div className="flex justify-center items-center"> 
-            <CircularProgress color="inherit" className="fixed z-[10] h-32 w-34" />
-          </div>
-        ) : isError ? (
-          <p>Erro: {error.message}</p>
-        ) : (
-          <Chart
-            chartType="GeoChart"
-            data={getMetricData(selectedMetric, data)}
-            options={options}
+      <div className="relative h-4/5 w-full px-10">
+        {isError ? (
+          <SpinnerCircular
+            size={60}
+            thickness={150}
+            speed={100}
+            color="#083D77"
+            secondaryColor="rgba(0, 0, 0, 0.2)"
           />
+        ) : (
+          <>
+            <Chart
+              chartType="GeoChart"
+              data={getMetricData(metric, data)}
+              options={options}
+              width={"100%"}
+              height={"500px"}
+            />
+            {isLoading && (
+              <div className="absolute inset-0 flex justify-center items-center bg-white bg-opacity-70 z-10">
+                <SpinnerCircular
+                  size={60}
+                  thickness={150}
+                  speed={100}
+                  color="#083D77"
+                  secondaryColor="rgba(0, 0, 0, 0.2)"
+                />
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
