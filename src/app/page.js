@@ -32,11 +32,6 @@ export default function App() {
     }
   });
 
-  // 🔥 Sempre que mudar metric ou year, refaz a busca
-  useEffect(() => {
-    refetch();
-  }, [year]); // O fetch depende apenas do ano
-
   const getMetricData = (metric, data) => {
     const dataUf = [['State', metric]];
     const fetchedUfCodes = new Set();

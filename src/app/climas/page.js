@@ -4,32 +4,28 @@ import TableClimate from "../../component/TableClimate";
 import InputSelect from "../../component/InputSelect";
 import { fetchApi } from "../../utils/fetchApi";
 import Filters from "../../component/Filters";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { CircularProgress } from "@mui/material";
+import { SpinnerCircular } from "spinners-react";
 
 export default function Climate() {
   const [year, setYear] = useState("2022");
-  const [selectedYear, setSelectedYear] = useState("2022");
 
-  const { data, isLoading, isError, error, refetch } = useQuery({
-    queryKey: ["ufGetInformacoes", selectedYear],
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["ufGetInformacoes", year],
     queryFn: async () => {
-      const response = await fetchApi(`/climate?data=data_climate_${selectedYear}`, "GET");
+      const response = await fetchApi(`/climate?data=data_climate_${year}`, "GET");
       return response;
     },
   });
 
-  const handleYearChange = (event) => {
-    setYear(event.target.value);
-  };
-
   const handleFetchData = () => {
-    setSelectedYear(year);
     refetch();
   };
 
   const getMetricData = (data) => {
+    if (!data) return [];
     const dataClimate = [];
     if (data) {
       Object.keys(data).forEach(climate => {
@@ -53,7 +49,7 @@ export default function Climate() {
     { value: "2022", label: "2022" },
   ];
 
-  const tableData = getMetricData(data);
+  const tableData = getMetricData(data) || [];
 
   return (
     <div className="flex flex-col items-center pt-5 gap-5">
@@ -68,23 +64,31 @@ export default function Climate() {
               <InputSelect
                 data={yearData}
                 selectLabel={"Ano"}
-                onChange={handleYearChange}
                 value={year}
+                onChange={(e) => setYear(e.target.value)}
               />
             </>
           }
           onButtonClick={handleFetchData}
         />
       </div>
-      <div className="h-4/5 w-4/5" >
-        {isLoading ? (
-          <div className="flex justify-center items-center">
-            <CircularProgress color="inherit" className="fixed z-[10] h-32 w-34" />
-          </div>
-        ) : isError ? (
-          <p>Erro: {error.message}</p>
+      <div className="relative h-4/5 w-4/5">
+        {isError ? (
+          <p>Erro: {error?.message || "Erro ao carregar dados"}</p>
         ) : (
-          <TableClimate data={tableData} />
+          <TableClimate data={tableData} isLoading={isLoading}/>
+        )}
+
+        {isLoading && (
+          <div className="absolute inset-0 flex justify-center items-center bg-white bg-opacity-50 z-10">
+            <SpinnerCircular
+              size={60}
+              thickness={150}
+              speed={100}
+              color="#083D77"
+              secondaryColor="rgba(0, 0, 0, 0.2)"
+            />
+          </div>
         )}
       </div>
     </div>

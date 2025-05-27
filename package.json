@@ -11,7 +11,8 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@mui/material": "^6.4.0",
+    "@mui/material": "^6.4.11",
+    "@mui/x-data-grid": "^8.4.0",
     "@react-jvectormap/brazil": "^1.0.1",
     "@syncfusion/ej2-react-maps": "^25.2.5",
     "emotion": "^11.0.0",
