@@ -3,11 +3,11 @@
 import GraphBarLine from "@/component/graphHighway/graphBarLine";
 import GraphPieBar from "@/component/graphHighway/graphPieBar";
 import InputSelect from "../../component/InputSelect";
+import { SpinnerCircular } from "spinners-react";
 import { fetchApi } from "../../utils/fetchApi";
 import Filters from "../../component/Filters";
-import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { CircularProgress } from "@mui/material";
+import { useState } from "react";
 
 const highwayFullName = {
   "asphalt": "Asfalto",
@@ -24,71 +24,46 @@ const highwayFullName = {
 export default function Road() {
   const [metric, setMetric] = useState("Acidentes");
   const [year, setYear] = useState("2022");
-  const [selectedMetric, setSelectedMetric] = useState("Acidentes");
-  const [selectedYear, setSelectedYear] = useState("2022");
 
-  const { data: highwayData, isLoading: isHighwayLoading, isError: isHighwayError, refetch: refetchHighway } = useQuery({
-    queryKey: ["highwayGetInformacoes", selectedYear],
+  const { data: highwayData, isLoading: isHighwayLoading, isError: isHighwayError } = useQuery({
+    queryKey: ["highwayGetInformacoes", year],
     queryFn: async () => {
-      const response = await fetchApi(`/highway?data=data_highway_${selectedYear}`, "GET");
+      const response = await fetchApi(`/highway?data=data_highway_${year}`, "GET");
       return response;
-    },
-    enabled: true
+    }
   });
 
-  const { data: guardrailData, isLoading: isGuardrailLoading, isError: isGuardrailError, refetch: refetchGuardrail } = useQuery({
-    queryKey: ["guardrailGetInformacoes", selectedYear],
+  const { data: guardrailData, isLoading: isGuardrailLoading, isError: isGuardrailError } = useQuery({
+    queryKey: ["guardrailGetInformacoes", year],
     queryFn: async () => {
-      const response = await fetchApi(`/guardrail?data=data_guardrail_${selectedYear}`, "GET");
+      const response = await fetchApi(`/guardrail?data=data_guardrail_${year}`, "GET");
       return response;
-    },
-    enabled: true
+    }
   });
 
-  const { data: medianData, isLoading: isMedianLoading, isError: isMedianError, refetch: refetchMedian } = useQuery({
-    queryKey: ["medianGetInformacoes", selectedYear],
+  const { data: medianData, isLoading: isMedianLoading, isError: isMedianError } = useQuery({
+    queryKey: ["medianGetInformacoes", year],
     queryFn: async () => {
-      const response = await fetchApi(`/median?data=data_median_${selectedYear}`, "GET");
+      const response = await fetchApi(`/median?data=data_median_${year}`, "GET");
       return response;
-    },
-    enabled: true
+    }
   });
 
-  const { data: shoulderData, isLoading: isShoulderLoading, isError: isShoulderError, refetch: refetchShoulder } = useQuery({
-    queryKey: ["shoulderGetInformacoes", selectedYear],
+  const { data: shoulderData, isLoading: isShoulderLoading, isError: isShoulderError } = useQuery({
+    queryKey: ["shoulderGetInformacoes", year],
     queryFn: async () => {
-      const response = await fetchApi(`/shoulder?data=data_shoulder_${selectedYear}`, "GET");
+      const response = await fetchApi(`/shoulder?data=data_shoulder_${year}`, "GET");
       return response;
-    },
-    enabled: true
+    }
   });
 
-  const { data: speedData, isLoading: isSpeedLoading, isError: isSpeedError, refetch: refetchSpeed } = useQuery({
-    queryKey: ["SpeedGetInformacoes", selectedYear],
+  const { data: speedData, isLoading: isSpeedLoading, isError: isSpeedError } = useQuery({
+    queryKey: ["SpeedGetInformacoes", year],
     queryFn: async () => {
-      const response = await fetchApi(`/speed?data=data_speed_${selectedYear}`, "GET");
+      const response = await fetchApi(`/speed?data=data_speed_${year}`, "GET");
       return response;
-    },
-    enabled: true
+    }
   });
-
-  const handleMetricChange = (event) => {
-    setMetric(event.target.value);
-  };
-
-  const handleYearChange = (event) => {
-    setYear(event.target.value);
-  };
-
-  const handleFetchData = () => {
-    setSelectedMetric(metric);
-    setSelectedYear(year);
-    refetchHighway();
-    refetchGuardrail();
-    refetchMedian();
-    refetchShoulder();
-    refetchSpeed();
-  };
 
   const getMetricData = (metric, data) => {
     const chartsData = [];
@@ -119,11 +94,11 @@ export default function Road() {
     return chartsData;
   };
 
-  const highwayMetricData = getMetricData(selectedMetric, highwayData);
-  const guardrailMetricData = getMetricData(selectedMetric, guardrailData);
-  const medianMetricData = getMetricData(selectedMetric, medianData);
-  const shoulderMetricData = getMetricData(selectedMetric, shoulderData);
-  const speedMetricData = getMetricData(selectedMetric, speedData);
+  const highwayMetricData = getMetricData(metric, highwayData);
+  const guardrailMetricData = getMetricData(metric, guardrailData);
+  const medianMetricData = getMetricData(metric, medianData);
+  const shoulderMetricData = getMetricData(metric, shoulderData);
+  const speedMetricData = getMetricData(metric, speedData);
 
   const menuData = [
     { value: "Acidentes", label: "Acidentes" },
@@ -137,6 +112,14 @@ export default function Road() {
     { value: "2021", label: "2021" },
     { value: "2022", label: "2022" },
   ];
+
+  const isLoading =
+    isHighwayLoading ||
+    isGuardrailLoading ||
+    isMedianLoading ||
+    isShoulderLoading ||
+    isSpeedLoading ||
+    isSpeedError;
 
   return (
     <div className="flex flex-col items-center pt-5 gap-5">
@@ -152,36 +135,34 @@ export default function Road() {
               <InputSelect
                 data={menuData}
                 selectLabel={"Métrica"}
-                onChange={handleMetricChange}
+                // onChange={handleMetricChange}
+                onChange={(e) => setMetric(e.target.value)}
                 value={metric}
               />
               <InputSelect
                 data={yearData}
                 selectLabel={"Ano"}
-                onChange={handleYearChange}
+                // onChange={handleYearChange}
+                onChange={(e) => setYear(e.target.value)}
                 value={year}
               />
             </>
           }
-          onButtonClick={handleFetchData}
+
         />
       </div>
 
-      <div className="w-4/5" >
-        {isHighwayLoading || isGuardrailLoading || isMedianLoading || isShoulderLoading ? (
-          <div className="flex justify-center items-center">
-            <CircularProgress color="inherit" className="fixed z-[10] h-32 w-34" />
-          </div>
-        ) : isHighwayError || isGuardrailError || isMedianError || isShoulderError ? (
+      <div className="relative w-4/5" >
+        {isHighwayError || isGuardrailError || isMedianError || isShoulderError ? (
           <p>Ocorreu um erro ao carregar os dados.</p>
-        ) : selectedMetric === "Envolvidos" ? (
+        ) : metric === "Envolvidos" ? (
           <GraphPieBar
             highwayData={highwayMetricData}
             guardrailData={guardrailMetricData}
             medianData={medianMetricData}
             shoulderData={shoulderMetricData}
             speedData={speedMetricData}
-            dataYear={selectedYear}
+            dataYear={year}
           />
         ) : (
           <GraphBarLine
@@ -190,8 +171,20 @@ export default function Road() {
             medianData={medianMetricData}
             shoulderData={shoulderMetricData}
             speedData={speedMetricData}
-            dataYear={selectedYear}
+            dataYear={year}
           />
+        )}
+
+        {isLoading && (
+          <div className="absolute inset-0 flex justify-center items-center bg-white bg-opacity-50 z-10">
+            <SpinnerCircular
+              size={60}
+              thickness={150}
+              speed={100}
+              color="#083D77"
+              secondaryColor="rgba(0, 0, 0, 0.2)"
+            />
+          </div>
         )}
       </div>
     </div>

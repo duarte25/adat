@@ -2,12 +2,11 @@
 
 import TableClimate from "../../component/TableClimate";
 import InputSelect from "../../component/InputSelect";
+import { SpinnerCircular } from "spinners-react";
 import { fetchApi } from "../../utils/fetchApi";
 import Filters from "../../component/Filters";
-import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { CircularProgress } from "@mui/material";
-import { SpinnerCircular } from "spinners-react";
+import  { useState } from "react";
 
 export default function Climate() {
   const [year, setYear] = useState("2022");
@@ -19,10 +18,6 @@ export default function Climate() {
       return response;
     },
   });
-
-  const handleFetchData = () => {
-    refetch();
-  };
 
   const getMetricData = (data) => {
     if (!data) return [];
@@ -69,7 +64,6 @@ export default function Climate() {
               />
             </>
           }
-          onButtonClick={handleFetchData}
         />
       </div>
       <div className="relative h-4/5 w-4/5">
