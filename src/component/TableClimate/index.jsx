@@ -1,23 +1,22 @@
 import TableSortLabel from '@mui/material/TableSortLabel';
 import TableContainer from '@mui/material/TableContainer';
+import { BsSnow2, BsCloudHailFill } from "react-icons/bs";
+import { IoMdCloudyNight } from "react-icons/io";
+import { RiSunFoggyFill } from "react-icons/ri";
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
+import { CgDetailsMore } from "react-icons/cg";
 import TableRow from '@mui/material/TableRow';
+import { GiWindsock } from "react-icons/gi";
+import { IoMdAlert } from "react-icons/io";
+import { LuSearchX } from "react-icons/lu";
+import { SiDrizzle } from "react-icons/si";
+import { IoRainy } from "react-icons/io5";
+import { MdSunny } from "react-icons/md";
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import * as React from 'react';
-
-import { MdSunny } from "react-icons/md";
-import { IoRainy } from "react-icons/io5";
-import { SiDrizzle } from "react-icons/si";
-import { GiWindsock } from "react-icons/gi";
-import { RiSunFoggyFill } from "react-icons/ri";
-import { IoMdCloudyNight } from "react-icons/io";
-import { BsSnow2, BsCloudHailFill } from "react-icons/bs";
-import { IoMdAlert } from "react-icons/io";
-import { CgDetailsMore } from "react-icons/cg";
-import { LuSearchX } from "react-icons/lu";
 
 const climateMapping = {
   "clear": { name: "Céu limpo", icon: <MdSunny /> },
@@ -55,17 +54,31 @@ export default function TableClimate({ data, isLoading }) {
     setOrderBy(property);
   };
 
-  const mappedData = data.map(item => ({
-    ...item,
-    climate: climateMapping[item.climate] || { name: item.climate, icon: null }
+  const baseData = Object.keys(climateMapping).map(key => ({
+    climate: climateMapping[key],
+    total_accident: 0,
+    total_involved: 0,
+    total_death: 0,
+    key: key
   }));
+
+  const mergedData = baseData.map(baseItem => {
+    const found = data.find(item => item.climate === baseItem.key);
+    return found
+      ? {
+        ...baseItem,
+        total_accident: found.total_accident,
+        total_involved: found.total_involved,
+        total_death: found.total_death,
+      }
+      : baseItem;
+  });
 
   const sortedData = React.useMemo(() => {
     return orderBy
-      ? [...mappedData].sort(getComparator(order, orderBy))
-      : mappedData;
-  }, [mappedData, order, orderBy]);
-
+      ? [...mergedData].sort(getComparator(order, orderBy))
+      : mergedData;
+  }, [mergedData, order, orderBy]);
   return (
     <TableContainer component={Paper}>
       <Table aria-label="sortable table">
