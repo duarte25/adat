@@ -1,17 +1,18 @@
 "use client";
 
+import { handleErrorMessages } from "@/errors/handleErrorMessage";
 import TableClimate from "../../component/TableClimate";
 import InputSelect from "../../component/InputSelect";
 import { SpinnerCircular } from "spinners-react";
 import { fetchApi } from "../../utils/fetchApi";
 import Filters from "../../component/Filters";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import  { useState } from "react";
 
 export default function Climate() {
   const [year, setYear] = useState("2022");
 
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["ufGetInformacoes", year],
     queryFn: async () => {
       const response = await fetchApi(`/climate?data=data_climate_${year}`, "GET");
@@ -24,11 +25,12 @@ export default function Climate() {
     const dataClimate = [];
     if (data) {
       Object.keys(data).forEach(climate => {
-        const { total_accident, total_death, total_involved } = data[climate];
+        const { total_accident, total_death, total_injured, total_involved } = data[climate];
         dataClimate.push({
           climate,
           total_accident,
           total_death,
+          total_injured,
           total_involved,
         });
       });
@@ -45,6 +47,12 @@ export default function Climate() {
   ];
 
   const tableData = getMetricData(data) || [];
+
+  useEffect(() => {
+    if (error) {
+      handleErrorMessages(error?.response?.data?.errors || []);
+    }
+  }, [error]);
 
   return (
     <div className="flex flex-col items-center pt-5 gap-5">
@@ -67,12 +75,7 @@ export default function Climate() {
         />
       </div>
       <div className="relative h-4/5 w-4/5">
-        {isError ? (
-          <p>Erro: {error?.message || "Erro ao carregar dados"}</p>
-        ) : (
-          <TableClimate data={tableData} isLoading={isLoading}/>
-        )}
-
+        <TableClimate data={tableData} isLoading={isLoading} />
         {isLoading && (
           <div className="absolute inset-0 flex justify-center items-center bg-white bg-opacity-50 z-10">
             <SpinnerCircular

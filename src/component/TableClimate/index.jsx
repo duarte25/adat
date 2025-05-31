@@ -16,7 +16,7 @@ import { IoRainy } from "react-icons/io5";
 import { MdSunny } from "react-icons/md";
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
-import * as React from 'react';
+import { useMemo, useState } from 'react';
 
 const climateMapping = {
   "clear": { name: "Céu limpo", icon: <MdSunny /> },
@@ -32,21 +32,21 @@ const climateMapping = {
   "other_conditions": { name: "Outras condições", icon: <CgDetailsMore /> },
 };
 
-function descendingComparator(a, b, orderBy) {
+export function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) return -1;
   if (b[orderBy] > a[orderBy]) return 1;
   return 0;
 }
 
-function getComparator(order, orderBy) {
+export function getComparator(order, orderBy) {
   return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
 export default function TableClimate({ data, isLoading }) {
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('');
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('');
 
   const handleRequestSort = (property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -58,6 +58,7 @@ export default function TableClimate({ data, isLoading }) {
     climate: climateMapping[key],
     total_accident: 0,
     total_involved: 0,
+    total_injured: 0,
     total_death: 0,
     key: key
   }));
@@ -69,16 +70,18 @@ export default function TableClimate({ data, isLoading }) {
         ...baseItem,
         total_accident: found.total_accident,
         total_involved: found.total_involved,
+        total_injured: found.total_injured,
         total_death: found.total_death,
       }
       : baseItem;
   });
 
-  const sortedData = React.useMemo(() => {
+  const sortedData = useMemo(() => {
     return orderBy
       ? [...mergedData].sort(getComparator(order, orderBy))
       : mergedData;
   }, [mergedData, order, orderBy]);
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="sortable table">
@@ -106,6 +109,16 @@ export default function TableClimate({ data, isLoading }) {
               </TableSortLabel>
             </TableCell>
 
+            <TableCell className="text-xl" align="center">
+              <TableSortLabel
+                active={orderBy === 'total_injured'}
+                direction={orderBy === 'total_injured' ? order : 'asc'}
+                onClick={() => handleRequestSort('total_injured')}
+              >
+                Feridos
+              </TableSortLabel>
+            </TableCell>
+
             <TableCell align="center" className="text-xl">
               <TableSortLabel
                 active={orderBy === 'total_death'}
@@ -123,7 +136,7 @@ export default function TableClimate({ data, isLoading }) {
             // Renderiza linhas falsas enquanto carrega
             Array.from({ length: 5 }).map((_, index) => (
               <TableRow key={index}>
-                <TableCell colSpan={4}>
+                <TableCell colSpan={5}>
                   <div className="animate-pulse flex space-x-4">
                     <div className="rounded-full bg-slate-700 h-6 w-6"></div>
                     <div className="flex-1 space-y-2 py-1">
@@ -155,6 +168,10 @@ export default function TableClimate({ data, isLoading }) {
 
                 <TableCell style={{ color: "white" }} align="center">
                   {row.total_involved}
+                </TableCell>
+
+                <TableCell style={{ color: "white" }} align="center">
+                  {row.total_injured}
                 </TableCell>
 
                 <TableCell style={{ color: "white" }} align="center">
