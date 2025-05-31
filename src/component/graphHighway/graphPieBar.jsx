@@ -79,7 +79,7 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
   // Opções para PieChart e BarChart
   const pieOptions = {
     pieHole: 0.4,
-    colors: ["#5992d0", "#083D77", "#0552B5"],
+    colors: ["#70eaf5", "#083D77"],
     legend: { position: "right" },
     titleTextStyle: {
       fontSize: 24,
@@ -89,7 +89,7 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
 
   const barOptions = {
     chartArea: { width: '70%', height: '70%' },
-    colors: ["#5992d0", "#083D77", "#0552B5"],
+    colors: ["#70eaf5", "#083D77"],
     axes: {
       y: {
         1: { side: 'left' }

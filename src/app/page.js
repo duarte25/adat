@@ -4,7 +4,7 @@ import InputSelect from "../component/InputSelect";
 import { fetchApi } from "../utils/fetchApi";
 import { Chart } from "react-google-charts";
 import Filters from "../component/Filters";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { SpinnerCircular } from "spinners-react";
 import { handleErrorMessages } from "@/errors/handleErrorMessage";
@@ -23,7 +23,7 @@ export default function App() {
   const [metric, setMetric] = useState("Acidentes");
   const [year, setYear] = useState("2022");
 
-  const { data, isLoading, isError, error, refetch } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["ufGetInformacoes", year],
     queryFn: async () => {
       const response = await fetchApi(`/uf?data=data_uf_${year}`, "GET");
@@ -97,7 +97,6 @@ export default function App() {
     }
   }, [error]);
 
-
   return (
     <div className="flex flex-col items-center pt-5 gap-5">
       <div className="w-1/2">
@@ -125,35 +124,23 @@ export default function App() {
         />
       </div>
       <div className="relative h-4/5 w-full px-10">
-        {isError ? (
-          <SpinnerCircular
-            size={60}
-            thickness={150}
-            speed={100}
-            color="#083D77"
-            secondaryColor="rgba(0, 0, 0, 0.2)"
-          />
-        ) : (
-          <>
-            <Chart
-              chartType="GeoChart"
-              data={getMetricData(metric, data)}
-              options={options}
-              width={"100%"}
-              height={"500px"}
+        <Chart
+          chartType="GeoChart"
+          data={getMetricData(metric, data)}
+          options={options}
+          width={"100%"}
+          height={"500px"}
+        />
+        {isLoading && (
+          <div className="absolute inset-0 flex justify-center items-center bg-white bg-opacity-70 z-10">
+            <SpinnerCircular
+              size={60}
+              thickness={150}
+              speed={100}
+              color="#083D77"
+              secondaryColor="rgba(0, 0, 0, 0.2)"
             />
-            {isLoading && (
-              <div className="absolute inset-0 flex justify-center items-center bg-white bg-opacity-70 z-10">
-                <SpinnerCircular
-                  size={60}
-                  thickness={150}
-                  speed={100}
-                  color="#083D77"
-                  secondaryColor="rgba(0, 0, 0, 0.2)"
-                />
-              </div>
-            )}
-          </>
+          </div>
         )}
       </div>
     </div>
