@@ -4,15 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "heroku-postbuild": "npm install --legacy-peer-deps && npm run build",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint ."
-  },
-  "engines": {
-    "node": "20.x",
-    "npm": "10.x"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
