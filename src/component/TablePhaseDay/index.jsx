@@ -4,14 +4,14 @@ import { LuSearchX, LuSunrise } from "react-icons/lu";
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
+import { getComparator } from "../TableClimate";
+import { TableSortLabel } from "@mui/material";
 import TableRow from '@mui/material/TableRow';
 import { GiNightSky } from "react-icons/gi";
+import { useMemo, useState } from "react";
 import { MdSunny } from "react-icons/md";
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
-import { TableSortLabel } from "@mui/material";
-import { useMemo, useState } from "react";
-import { getComparator } from "../TableClimate";
 
 // Mapeamento para phase_day
 const phaseDayMapping = {

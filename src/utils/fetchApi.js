@@ -1,8 +1,10 @@
 // Função para verificar se onde a função está sendo chamada está do lado do servidor ou do lado do cliente
 const verificarRenderizacao = () => {
   if (typeof window !== "undefined") {
+    // eslint-disable-next-line no-undef
     return process.env.NEXT_PUBLIC_API_URL;
   } else {
+    // eslint-disable-next-line no-undef
     return process.env.API_URL;
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { FaCloudSunRain, FaFilter } from "react-icons/fa";
+import { FaCloudSunRain } from "react-icons/fa";
 import { MdCalendarMonth } from "react-icons/md";
 import { usePathname } from 'next/navigation';
 import { VscGraph } from "react-icons/vsc";

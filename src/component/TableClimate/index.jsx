@@ -12,11 +12,11 @@ import { GiWindsock } from "react-icons/gi";
 import { IoMdAlert } from "react-icons/io";
 import { LuSearchX } from "react-icons/lu";
 import { SiDrizzle } from "react-icons/si";
+import { useMemo, useState } from 'react';
 import { IoRainy } from "react-icons/io5";
 import { MdSunny } from "react-icons/md";
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
-import { useMemo, useState } from 'react';
 
 const climateMapping = {
   "clear": { name: "Céu limpo", icon: <MdSunny /> },

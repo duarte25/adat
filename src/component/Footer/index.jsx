@@ -1,6 +1,4 @@
 import { TbBrandGithub, TbBrandLinkedin } from 'react-icons/tb';
-import { FaFacebook } from 'react-icons/fa';
-import * as React from 'react';
 import Link from 'next/link';
 
 export default function Footer() {

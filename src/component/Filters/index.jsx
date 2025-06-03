@@ -1,6 +1,3 @@
-import * as React from "react";
-import Button from "../Button";
-
 export default function Filters({ inputSelect }) {
   return (
     <div className="flex flex-row items-center w-full bg-beige p-5 gap-5" >
