@@ -51,7 +51,7 @@ export default function Header() {
             className={clsx(
               "flex flex-col items-center justify-center text-white",
               pathname === item.href &&
-              "bg-ghost-white border-b-[0.3vw] border-yale-blue text-black"
+              "bg-ghost-white border-b-[0.3vw] border-yale-blue !text-black"
             )}
           >
             {item.icon}
