@@ -1,10 +1,9 @@
-import { Inter } from "next/font/google";
-import "./globals.css";
-import Header from "../component/Header";
-import FilterAll from "../component/PrincipalFilter";
 import ReactQueryProvider from "../providers/reactQueryProvider.js";
-import Footer from "@/component/Footer";
 import ReactToastContainer from "@/component/ReactToastContainer";
+import FilterAll from "../component/PrincipalFilter";
+import { Inter } from "next/font/google";
+import Footer from "@/component/Footer";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +17,7 @@ export default function RootLayout({ children }) {
     <html lang="pt-br">
       <ReactQueryProvider>
         <body className={`flex flex-col min-h-screen ${inter.className}`}>
-          <Header />
+          {/* <Header /> */}
           <FilterAll />
           <div className="flex-grow">
             <ReactToastContainer />

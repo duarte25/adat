@@ -16,7 +16,7 @@ export default function FilterAll() {
 
   const menuItems = [
     { href: "/", icon: <GiBrazil className="h-10 w-10" />, label: ["Estados"] },
-    { href: "/climas", icon: <FaCloudSunRain className="h-10 w-10" />, label: ["Tempo / Clima"] },
+    { href: "/climas", icon: <FaCloudSunRain className="h-10 w-10" />, label: ["Tempo/Clima"] },
     { href: "/pistas", icon: <TbRoad className="h-10 w-10" />, label: ["Pista"] },
     { href: "/estatistica_anual", icon: <VscGraph className="h-9 w-9 mt-1" />, label: ["Estatística", "Anual"] },
     { href: "/calendario", icon: <MdCalendarMonth className="h-10 w-10" />, label: ["Calendário"] },
@@ -31,17 +31,27 @@ export default function FilterAll() {
   ];
 
   return (
-    <div className="w-full bg-beige flex flex-row justify-center items-center">
+    <div className="w-full bg-yale-blue flex flex-row justify-between ">
       {/* Menu Principal */}
-      <div className={`hidden md:flex flex-row gap-10`}>
+
+      <div className="flex p-1 w-full" >
+        <div className="flex flex-col justify-center ml-5 leading-none">
+          <div className="flex flex-row items-end">
+            <h1 className="text-naples-yellow text-4xl">ADAT</h1>
+            <h3 className="text-snow-white text-xl font-normal">ACIDENTES NO </h3>
+          </div>
+          <h2 className="text-snow-white text-2xl font-extrabold mt-0">TRANSPORTE BRASILEIRO</h2>
+        </div>
+      </div>
+      <div className={`hidden md:flex flex-row gap-8 mr-5`}>
         {menuItems.map((item, index) => (
           <Link
             key={index}
             href={item.href}
             className={clsx(
-              "flex flex-col items-center justify-center",
+              "flex flex-col items-center justify-center text-white",
               pathname === item.href &&
-              "bg-ghost-white border-b-[0.3vw] border-yale-blue"
+              "bg-ghost-white border-b-[0.3vw] border-yale-blue text-black"
             )}
           >
             {item.icon}
