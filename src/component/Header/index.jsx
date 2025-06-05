@@ -10,7 +10,7 @@ import { useState } from "react";
 import Link from 'next/link';
 import clsx from "clsx";
 
-export default function FilterAll() {
+export default function Header() {
   const pathname = usePathname();
   const [toggleMenu, setToggleMenu] = useState(false);
 

@@ -1,6 +1,6 @@
 import ReactQueryProvider from "../providers/reactQueryProvider.js";
 import ReactToastContainer from "@/component/ReactToastContainer";
-import FilterAll from "../component/PrincipalFilter";
+import Header from "@/component/Header/index.jsx";
 import { Inter } from "next/font/google";
 import Footer from "@/component/Footer";
 import "./globals.css";
@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
       <ReactQueryProvider>
         <body className={`flex flex-col min-h-screen ${inter.className}`}>
           {/* <Header /> */}
-          <FilterAll />
+          <Header />
           <div className="flex-grow">
             <ReactToastContainer />
             {children}
