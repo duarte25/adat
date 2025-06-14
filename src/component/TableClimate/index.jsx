@@ -19,17 +19,17 @@ import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 
 const climateMapping = {
-  "clear": { name: "Céu limpo", icon: <MdSunny /> },
-  "strong_winds": { name: "Ventos fortes", icon: <GiWindsock /> },
-  "drizzle": { name: "Garoa/Chuvisco", icon: <SiDrizzle /> },
+  "CLARO": { name: "Céu limpo", icon: <MdSunny /> },
+  "VENTOS FORTES": { name: "Ventos fortes", icon: <GiWindsock /> },
+  "GAROACHUVISCO": { name: "Garoa/Chuvisco", icon: <SiDrizzle /> },
   "rain": { name: "Chuva", icon: <IoRainy /> },
-  "fog": { name: "Nevoeiro/névoa/fumaça", icon: <RiSunFoggyFill /> },
-  "cloudy": { name: "Nublado", icon: <IoMdCloudyNight /> },
-  "snow": { name: "Neve", icon: <BsSnow2 /> },
-  "hail": { name: "Granizo", icon: <BsCloudHailFill /> },
-  "unknown": { name: "Desconhecidas", icon: <LuSearchX /> },
-  "not_informed": { name: "Não informado", icon: <IoMdAlert /> },
-  "other_conditions": { name: "Outras condições", icon: <CgDetailsMore /> },
+  "NEVOEIRO  NEVOA OU FUMACA": { name: "Nevoeiro/névoa/fumaça", icon: <RiSunFoggyFill /> },
+  "NUBLADO": { name: "Nublado", icon: <IoMdCloudyNight /> },
+  "NEVE": { name: "Neve", icon: <BsSnow2 /> },
+  "GRANIZO": { name: "Granizo", icon: <BsCloudHailFill /> },
+  "DESCONHECIDAS": { name: "Desconhecidas", icon: <LuSearchX /> },
+  "NAO INFORMADO": { name: "Não informado", icon: <IoMdAlert /> },
+  "OUTRAS CONDICOES": { name: "Outras condições", icon: <CgDetailsMore /> },
 };
 
 export function descendingComparator(a, b, orderBy) {

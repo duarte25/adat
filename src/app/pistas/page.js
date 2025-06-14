@@ -10,15 +10,15 @@ import { useQuery } from "react-query";
 import { useState } from "react";
 
 const highwayFullName = {
-  "asphalt": "Asfalto",
-  "concrete": "Concreto",
-  "earth": "Terra",
-  "gravel": "Cascalho",
-  "not_informed": "Não informado",
-  "paving_stone": "Paralelepípedo",
-  "unknown": "Desconhecido",
-  "yes": "Sim",
-  "not": "Não"
+  "ASFALTO": "Asfalto",
+  "CONCRETO": "Concreto",
+  "TERRA": "Terra",
+  "CASCALHO": "Cascalho",
+  "NAO INFORMADO": "Não informado",
+  "PARALELEPIPEDO": "Paralelepípedo",
+  "DESCONHECIDO": "Desconhecido",
+  "SIM": "Sim",
+  "NAO": "Não"
 };
 
 export default function Road() {
