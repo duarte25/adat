@@ -1,7 +1,9 @@
 import Chart from "react-google-charts";
 
 export default function GraphPieBar({ highwayData, shoulderData, medianData, guardrailData, speedData, dataYear }) {
-  
+
+  console.log("SPEED", speedData)
+
   const getHighwayData = (data, highwayType) => {
     const highwayData = data.find((item) => item.highway === highwayType)?.data || [];
 
@@ -9,7 +11,15 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
       return [["Sem dados", 0]];
     }
 
-    return highwayData.map(([label, value]) => [
+    // Filtrar fora a linha com label "Envolvidos"
+    const filteredData = highwayData.filter(([label]) => label !== "Envolvidos");
+
+    // Se ainda assim não houver dados, retornar sem dados
+    if (filteredData.length === 0) {
+      return [["Sem dados", 0]];
+    }
+
+    return filteredData.map(([label, value]) => [
       `${label}: ${value.toLocaleString('pt-BR')}`,
       value
     ]);
@@ -22,7 +32,7 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
 
   // Configura os dados para o gráfico de barras
   const prepareBarChartData = (metricData) => [
-    [`${dataYear}`, 'Óbitos', 'Envolvidos', 'Feridos'],
+    [`${dataYear}`, 'Envolvidos', 'Óbitos', 'Feridos'],
     ['Não', metricData.nao[0] || 0, metricData.nao[1] || 0, metricData.nao[2] || 0],
     ['Não informado', metricData.naoInformado[0] || 0, metricData.naoInformado[1] || 0, metricData.naoInformado[2] || 0],
     ['Desconhecido', metricData.desconhecido[0] || 0, metricData.desconhecido[1] || 0, metricData.desconhecido[2] || 0],
@@ -30,13 +40,13 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
   ];
 
   const prepareBarChartDataSpeed = (metricData) => [
-    [`${dataYear}`, 'Óbitos', 'Envolvidos', 'Feridos'],
-    ['110 km/h', metricData.quilometro110[0] || 0, metricData.quilometro110[1] || 0, metricData.quilometro110[2] || 0],
-    ['30 km/h', metricData.quilometro30[0] || 0, metricData.quilometro30[1] || 0, metricData.quilometro30[2] || 0],
-    ['40 km/h', metricData.quilometro40[0] || 0, metricData.quilometro40[1] || 0, metricData.quilometro40[2] || 0],
-    ['60 km/h', metricData.quilometro60[0] || 0, metricData.quilometro60[1] || 0, metricData.quilometro60[2] || 0],
-    ['80 km/h', metricData.quilometro80[0] || 0, metricData.quilometro80[1] || 0, metricData.quilometro80[2] || 0],
-    ['Não informado', metricData.naoInformado[0] || 0, metricData.naoInformado[1] || 0, metricData.naoInformado[2] || 0]
+    [`${dataYear}`, 'Envolvidos', 'Óbitos', 'Feridos'],
+    ['30 km/h', metricData.quilometro30[2] || 0, metricData.quilometro30[1] || 0, metricData.quilometro30[3] || 0],
+    ['40 km/h', metricData.quilometro40[2] || 0, metricData.quilometro40[1] || 0, metricData.quilometro40[3] || 0],
+    ['60 km/h', metricData.quilometro60[2] || 0, metricData.quilometro60[1] || 0, metricData.quilometro60[3] || 0],
+    ['80 km/h', metricData.quilometro80[2] || 0, metricData.quilometro80[1] || 0, metricData.quilometro80[3] || 0],
+    ['110 km/h', metricData.quilometro110[2] || 0, metricData.quilometro110[1] || 0, metricData.quilometro110[3] || 0],
+    ['Não informado', metricData.naoInformado[2] || 0, metricData.naoInformado[1] || 0, metricData.naoInformado[3] || 0]
   ];
 
   // Estrutura os dados de acostamento, mediana, guarda-corpo e velocidade
@@ -62,11 +72,11 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
   };
 
   const speedMetricData = {
-    quilometro110: getMetricData(speedData, '110_kmh'),
-    quilometro30: getMetricData(speedData, '30_kmh'),
-    quilometro40: getMetricData(speedData, '40_kmh'),
-    quilometro60: getMetricData(speedData, '60_kmh'),
-    quilometro80: getMetricData(speedData, '80_kmh'),
+    quilometro110: getMetricData(speedData, '110 KMH'),
+    quilometro30: getMetricData(speedData, '30 KMH'),
+    quilometro40: getMetricData(speedData, '40 KMH'),
+    quilometro60: getMetricData(speedData, '60 KMH'),
+    quilometro80: getMetricData(speedData, '80 MH'),
     naoInformado: getMetricData(speedData, 'Não informado')
   };
 
