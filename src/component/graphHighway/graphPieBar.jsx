@@ -2,8 +2,6 @@ import Chart from "react-google-charts";
 
 export default function GraphPieBar({ highwayData, shoulderData, medianData, guardrailData, speedData, dataYear }) {
 
-  console.log("SPEED", speedData)
-
   const getHighwayData = (data, highwayType) => {
     const highwayData = data.find((item) => item.highway === highwayType)?.data || [];
 
@@ -32,21 +30,75 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
 
   // Configura os dados para o gráfico de barras
   const prepareBarChartData = (metricData) => [
-    [`${dataYear}`, 'Envolvidos', 'Óbitos', 'Feridos'],
-    ['Não', metricData.nao[0] || 0, metricData.nao[1] || 0, metricData.nao[2] || 0],
-    ['Não informado', metricData.naoInformado[0] || 0, metricData.naoInformado[1] || 0, metricData.naoInformado[2] || 0],
-    ['Desconhecido', metricData.desconhecido[0] || 0, metricData.desconhecido[1] || 0, metricData.desconhecido[2] || 0],
-    ['Sim', metricData.sim[0] || 0, metricData.sim[1] || 0, metricData.sim[2] || 0]
+    [`${dataYear}`, 'Óbitos', { role: 'annotation' }, 'Feridos', { role: 'annotation' }],
+    ['Não',
+      metricData.nao[1] || 0, // Valor de Óbitos
+      (metricData.nao[1] || 0).toLocaleString('pt-BR'), // Anotação para Óbitos
+      metricData.nao[2] || 0, // Valor de Feridos
+      (metricData.nao[2] || 0).toLocaleString('pt-BR') // Anotação para Feridos
+    ],
+    ['Não informado',
+      metricData.naoInformado[1] || 0,
+      (metricData.naoInformado[1] || 0).toLocaleString('pt-BR'),
+      metricData.naoInformado[2] || 0,
+      (metricData.naoInformado[2] || 0).toLocaleString('pt-BR')
+    ],
+    ['Desconhecido',
+      metricData.desconhecido[1] || 0,
+      (metricData.desconhecido[1] || 0).toLocaleString('pt-BR'),
+      metricData.desconhecido[2] || 0,
+      (metricData.desconhecido[2] || 0).toLocaleString('pt-BR')
+    ],
+    ['Sim',
+      metricData.sim[1] || 0,
+      (metricData.sim[1] || 0).toLocaleString('pt-BR'),
+      metricData.sim[2] || 0,
+      (metricData.sim[2] || 0).toLocaleString('pt-BR')
+    ]
   ];
 
+  // A CORREÇÃO ESTÁ AQUI:
   const prepareBarChartDataSpeed = (metricData) => [
-    [`${dataYear}`, 'Envolvidos', 'Óbitos', 'Feridos'],
-    ['30 km/h', metricData.quilometro30[2] || 0, metricData.quilometro30[1] || 0, metricData.quilometro30[3] || 0],
-    ['40 km/h', metricData.quilometro40[2] || 0, metricData.quilometro40[1] || 0, metricData.quilometro40[3] || 0],
-    ['60 km/h', metricData.quilometro60[2] || 0, metricData.quilometro60[1] || 0, metricData.quilometro60[3] || 0],
-    ['80 km/h', metricData.quilometro80[2] || 0, metricData.quilometro80[1] || 0, metricData.quilometro80[3] || 0],
-    ['110 km/h', metricData.quilometro110[2] || 0, metricData.quilometro110[1] || 0, metricData.quilometro110[3] || 0],
-    ['Não informado', metricData.naoInformado[2] || 0, metricData.naoInformado[1] || 0, metricData.naoInformado[3] || 0]
+    [`${dataYear}`,
+      'Óbitos', { role: 'annotation' },
+      'Feridos', { role: 'annotation' }
+    ],
+    ['30 km/h',
+      metricData.quilometro30[1] || 0, // Valor de Óbitos
+      (metricData.quilometro30[1] || 0).toLocaleString('pt-BR'), // Anotação para Óbitos
+      metricData.quilometro30[3] || 0, // Valor de Feridos
+      (metricData.quilometro30[3] || 0).toLocaleString('pt-BR') // Anotação para Feridos
+    ],
+    ['40 km/h',
+      metricData.quilometro40[1] || 0,
+      (metricData.quilometro40[1] || 0).toLocaleString('pt-BR'),
+      metricData.quilometro40[3] || 0,
+      (metricData.quilometro40[3] || 0).toLocaleString('pt-BR')
+    ],
+    ['60 km/h',
+      metricData.quilometro60[1] || 0,
+      (metricData.quilometro60[1] || 0).toLocaleString('pt-BR'),
+      metricData.quilometro60[3] || 0,
+      (metricData.quilometro60[3] || 0).toLocaleString('pt-BR')
+    ],
+    ['80 km/h',
+      metricData.quilometro80[1] || 0,
+      (metricData.quilometro80[1] || 0).toLocaleString('pt-BR'),
+      metricData.quilometro80[3] || 0,
+      (metricData.quilometro80[3] || 0).toLocaleString('pt-BR')
+    ],
+    ['110 km/h',
+      metricData.quilometro110[1] || 0,
+      (metricData.quilometro110[1] || 0).toLocaleString('pt-BR'),
+      metricData.quilometro110[3] || 0,
+      (metricData.quilometro110[3] || 0).toLocaleString('pt-BR')
+    ],
+    ['Não informado',
+      metricData.naoInformado[1] || 0,
+      (metricData.naoInformado[1] || 0).toLocaleString('pt-BR'),
+      metricData.naoInformado[3] || 0,
+      (metricData.naoInformado[3] || 0).toLocaleString('pt-BR')
+    ]
   ];
 
   // Estrutura os dados de acostamento, mediana, guarda-corpo e velocidade
@@ -99,11 +151,14 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
 
   const barOptions = {
     chartArea: { width: '70%', height: '70%' },
-    colors: ["#70eaf5", "#083D77"],
+    colors: ["#03a1fc", "#083D77"],
     axes: {
       y: {
         1: { side: 'left' }
       }
+    },
+    hAxis: {
+      textPosition: 'bottom'
     },
   };
 
@@ -148,7 +203,7 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
         <div className="flex flex-col w-3/6 gap-1 box-border">
           <h3 className="text-2xl font-semibold">Acostamento</h3>
           <Chart
-            chartType="Bar"
+            chartType="ColumnChart"
             data={chartDataShoulder}
             options={{ ...barOptions }}
             width="100%"
@@ -159,7 +214,7 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
         <div className="flex flex-col w-3/6 gap-1 box-border">
           <h3 className="text-2xl font-semibold">Canteiro Central</h3>
           <Chart
-            chartType="Bar"
+            chartType="ColumnChart"
             data={chartDataMedian}
             options={{ ...barOptions }}
             width="100%"
@@ -172,7 +227,7 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
         <div className="flex flex-col w-3/6 gap-1 box-border">
           <h3 className="text-2xl font-semibold">Guarda Costa</h3>
           <Chart
-            chartType="Bar"
+            chartType="ColumnChart"
             data={chartDataGuardrail}
             options={{ ...barOptions }}
             width="100%"
@@ -183,7 +238,7 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
         <div className="flex flex-col w-3/6 gap-1 box-border">
           <h3 className="text-2xl font-semibold">Velocidade máxima da via</h3>
           <Chart
-            chartType="Bar"
+            chartType="ColumnChart"
             data={chartDataSpeed}
             options={{ ...barOptions }}
             width="100%"

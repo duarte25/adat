@@ -30,7 +30,9 @@ export default function Road() {
     queryFn: async () => {
       const response = await fetchApi(`/highway?data=data_highway_${year}`, "GET");
       return response;
-    }
+    },
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
 
   const { data: guardrailData, isLoading: isGuardrailLoading, isError: isGuardrailError } = useQuery({
@@ -38,7 +40,9 @@ export default function Road() {
     queryFn: async () => {
       const response = await fetchApi(`/guardrail?data=data_guardrail_${year}`, "GET");
       return response;
-    }
+    },
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
 
   const { data: medianData, isLoading: isMedianLoading, isError: isMedianError } = useQuery({
@@ -46,7 +50,9 @@ export default function Road() {
     queryFn: async () => {
       const response = await fetchApi(`/median?data=data_median_${year}`, "GET");
       return response;
-    }
+    },
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
 
   const { data: shoulderData, isLoading: isShoulderLoading, isError: isShoulderError } = useQuery({
@@ -54,7 +60,9 @@ export default function Road() {
     queryFn: async () => {
       const response = await fetchApi(`/shoulder?data=data_shoulder_${year}`, "GET");
       return response;
-    }
+    },
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
 
   const { data: speedData, isLoading: isSpeedLoading, isError: isSpeedError } = useQuery({
@@ -62,7 +70,9 @@ export default function Road() {
     queryFn: async () => {
       const response = await fetchApi(`/speed?data=data_speed_${year}`, "GET");
       return response;
-    }
+    },
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
 
   const getMetricData = (metric, data) => {
