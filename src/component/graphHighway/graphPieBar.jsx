@@ -6,7 +6,7 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
     const highwayData = data.find((item) => item.highway === highwayType)?.data || [];
 
     if (highwayData.length === 0) {
-      return [["Sem dados", 0]];
+      return [["Categoria", "Valor"], ["Sem dados", 0]];
     }
 
     // Filtrar fora a linha com label "Envolvidos"
@@ -14,7 +14,7 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
 
     // Se ainda assim não houver dados, retornar sem dados
     if (filteredData.length === 0) {
-      return [["Sem dados", 0]];
+      return [["Categoria", "Valor"], ["Sem dados", 0]];
     }
 
     return filteredData.map(([label, value]) => [

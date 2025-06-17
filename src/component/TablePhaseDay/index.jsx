@@ -15,23 +15,23 @@ import Table from '@mui/material/Table';
 
 // Mapeamento para phase_day
 const phaseDayMapping = {
-  "morning": { name: "Manhã", icon: <LuSunrise /> },
-  "afternoon": { name: "Tarde", icon: <MdSunny /> },
-  "night": { name: "Noite", icon: <IoIosCloudyNight /> },
-  "dawn": { name: "Madrugada", icon: <GiNightSky /> },
-  "unknown": { name: "Desconhecido", icon: <LuSearchX /> },
-  "not_informed": { name: "Não informado", icon: <IoMdAlert /> },
+  "MANHA": { name: "Manhã", icon: <LuSunrise /> },
+  "TARDE": { name: "Tarde", icon: <MdSunny /> },
+  "NOITE": { name: "Noite", icon: <IoIosCloudyNight /> },
+  "MADRUGADA": { name: "Madrugada", icon: <GiNightSky /> },
+  "DESCONHECIDO": { name: "Desconhecido", icon: <LuSearchX /> },
+  "NAO INFORMADO": { name: "Não informado", icon: <IoMdAlert /> },
 };
 
 // Mapeamento para day_week
 const dayWeekMapping = {
-  "sunday": { name: "Domingo" },
-  "monday": { name: "Segunda-feira" },
-  "tuesday": { name: "Terça-feira" },
-  "wednesday": { name: "Quarta-feira" },
-  "thursday": { name: "Quinta-feira" },
-  "friday": { name: "Sexta-feira" },
-  "saturday": { name: "Sábado" },
+  "DOMINGO": { name: "Domingo" },
+  "SEGUNDA-FEIRA": { name: "Segunda-feira" },
+  "TERCA-FEIRA": { name: "Terça-feira" },
+  "QUARTA-FEIRA": { name: "Quarta-feira" },
+  "QUINTA-FEIRA": { name: "Quinta-feira" },
+  "SEXTA-FEIRA": { name: "Sexta-feira" },
+  "SABADO": { name: "Sábado" },
 };
 
 // Mapeamento para month

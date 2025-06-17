@@ -22,7 +22,7 @@ const climateMapping = {
   "CLARO": { name: "Céu limpo", icon: <MdSunny /> },
   "VENTOS FORTES": { name: "Ventos fortes", icon: <GiWindsock /> },
   "GAROACHUVISCO": { name: "Garoa/Chuvisco", icon: <SiDrizzle /> },
-  "rain": { name: "Chuva", icon: <IoRainy /> },
+  "CHUVA": { name: "Chuva", icon: <IoRainy /> },
   "NEVOEIRO  NEVOA OU FUMACA": { name: "Nevoeiro/névoa/fumaça", icon: <RiSunFoggyFill /> },
   "NUBLADO": { name: "Nublado", icon: <IoMdCloudyNight /> },
   "NEVE": { name: "Neve", icon: <BsSnow2 /> },

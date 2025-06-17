@@ -11,28 +11,18 @@ import { handleErrorMessages } from "@/errors/handleErrorMessage";
 
 export default function Calendario() {
   const [year, setYear] = useState("2022");
-  const [selectedYear, setSelectedYear] = useState("2022");
   const [selectedSearch, setSelectedSearch] = useState("phase_day");
 
-  const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["ufGetInformacoes", selectedYear, selectedSearch],
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["ufGetInformacoes", year],
     queryFn: async () => {
-      const response = await fetchApi(`/${selectedSearch}?data=data_${selectedSearch}_${selectedYear}`, "GET");
+      const response = await fetchApi(`/${selectedSearch}?data=data_${selectedSearch}_${year}`, "GET");
       return response;
     },
   });
 
-  const handleYearChange = (event) => {
-    setYear(event.target.value);
-  };
-
   const handleSearchChange = (event) => {
     setSelectedSearch(event.target.value);
-  };
-
-  const handleFetchData = () => {
-    setSelectedYear(year);
-    refetch();
   };
 
   const getMetricData = (data) => {
@@ -87,7 +77,8 @@ export default function Calendario() {
               <InputSelect
                 data={yearData}
                 selectLabel={"Ano"}
-                onChange={handleYearChange}
+                // onChange={handleYearChange}
+                onChange={(e) => setYear(e.target.value)}
                 value={year}
               />
 
@@ -99,11 +90,10 @@ export default function Calendario() {
               />
             </>
           }
-          onButtonClick={handleFetchData}
         />
       </div>
       <div className="relative h-4/5 w-4/5">
-        <TablePhaseDay data={tableData} searchType={selectedSearch} isLoading={isLoading}/>
+        <TablePhaseDay data={tableData} searchType={selectedSearch} isLoading={isLoading} />
         {isLoading && (
           <div className="absolute inset-0 flex justify-center items-center bg-white bg-opacity-50 z-10">
             <SpinnerCircular
