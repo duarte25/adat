@@ -46,8 +46,8 @@ export default function GraphPieBar({ highwayData, shoulderData, medianData, gua
     ['Desconhecido',
       metricData.desconhecido[1] || 0,
       (metricData.desconhecido[1] || 0).toLocaleString('pt-BR'),
-      metricData.desconhecido[2] || 0,
-      (metricData.desconhecido[2] || 0).toLocaleString('pt-BR')
+      metricData.desconhecido[3] || 0,
+      (metricData.desconhecido[3] || 0).toLocaleString('pt-BR')
     ],
     ['Sim',
       metricData.sim[1] || 0,

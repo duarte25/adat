@@ -14,7 +14,7 @@ export default function Calendario() {
   const [selectedSearch, setSelectedSearch] = useState("phase_day");
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["ufGetInformacoes", year],
+    queryKey: ["ufGetInformacoes",  selectedSearch, year],
     queryFn: async () => {
       const response = await fetchApi(`/${selectedSearch}?data=data_${selectedSearch}_${year}`, "GET");
       return response;
